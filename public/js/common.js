@@ -41,9 +41,10 @@ submitButton.addEventListener("click", () => {
       console.log(res.data.data);
       textbox.value = "";
       submitButton.disabled = true;
-      document.querySelector(".postContainer").innerHTML = createPost(
-        res.data.data
-      );
+      deleteNoResult();
+      document.querySelector(".postContainer").innerHTML =
+        createPost(res.data.data) +
+        document.querySelector(".postContainer").innerHTML;
     })
     .catch((error) => {
       submitButton.disabled = false;
@@ -93,4 +94,23 @@ const createPost = (postData) => {
                   </div>
               </div>
           </div>`;
+};
+
+const getSpinner = () => {
+  return `<div class="text-center py-5 spinner-loader">
+  
+  <div class="spinner-border text-primary m-auto my-5" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+  
+  </div>`;
+};
+
+const deleteSpinner = () => {
+  document.querySelector(".spinner-loader").style.display = "none";
+};
+
+const deleteNoResult = () => {
+  if (document.querySelector(".no-result"))
+    document.querySelector(".no-result").style.display = "none";
 };

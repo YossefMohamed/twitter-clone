@@ -67,6 +67,7 @@ button {
   border-right: 1px solid var(--lightGrey);
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 .titleContainer {

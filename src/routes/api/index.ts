@@ -3,6 +3,6 @@ import { postRouter } from "./posts";
 
 const router = Router();
 
-router.use("/", postRouter);
+router.use("/post", postRouter);
 
 export { router as ApiRouter };
