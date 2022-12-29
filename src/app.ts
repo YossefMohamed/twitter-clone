@@ -5,7 +5,7 @@ import path from "path";
 dotenv.config({ path: path.join(__dirname, "./.env") });
 import morgan from "morgan";
 import Database from "./database";
-import { IUser } from "./schemas/useSchema";
+import { IUser } from "./schemas/userSchema";
 import session from "express-session";
 const app = express();
 
@@ -15,6 +15,7 @@ app.set("views", path.join(__dirname, "./views"));
 import loginRouter from "./routes/loginRoutes";
 import registerRouter from "./routes/registerRoutes";
 import { requireLogin } from "./middlewares/requireLogin";
+import { ApiRouter } from "./routes/api";
 declare module "express" {
   export interface Request {
     session: {
@@ -50,6 +51,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
+app.use("/api", ApiRouter);
 
 app.get("/", requireLogin, (req: any, res, next) => {
   var payload = {
@@ -58,13 +60,6 @@ app.get("/", requireLogin, (req: any, res, next) => {
   };
 
   res.status(200).render("home", payload);
-});
-
-app.get("/", (req, res, next) => {
-  const title = "yossef";
-  res.status(200).render("index", {
-    title,
-  });
 });
 
 export { app };

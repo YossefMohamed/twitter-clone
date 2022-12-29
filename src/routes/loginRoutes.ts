@@ -1,5 +1,5 @@
 import { Router } from "express";
-import User from "../schemas/useSchema";
+import User from "../schemas/userSchema";
 import bcrypt from "bcrypt";
 const router = Router();
 
