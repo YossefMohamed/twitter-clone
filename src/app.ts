@@ -10,20 +10,21 @@ import session from "express-session";
 const app = express();
 
 app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "./views"));
 
 import loginRouter from "./routes/loginRoutes";
 import registerRouter from "./routes/registerRoutes";
 import { requireLogin } from "./middlewares/requireLogin";
 declare module "express" {
   export interface Request {
-    user: IUser;
-    session: any;
+    session: {
+      user: IUser;
+    };
   }
 }
 
 app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "./views"));
 
 new Database();
 
@@ -39,7 +40,11 @@ app.use(
 
 app.use(morgan("dev"));
 app.use(express.json());
-
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
 app.use(express.static(path.join(__dirname, "../public")));
 

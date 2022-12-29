@@ -44,7 +44,6 @@ router.post("/", async (req: any, res, next) => {
       res.status(200).render("register", payload);
     }
   } else {
-    console.log(firstName && lastName && username && email && password);
     payload.errorMessage = "Make sure each field has a valid value.";
     res.status(200).render("register", payload);
   }

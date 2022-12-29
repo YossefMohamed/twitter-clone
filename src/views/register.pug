@@ -5,7 +5,8 @@ block content
         h1 Register
         form#registerForm(method="post", onsubmit="event.preventDefault(); validateForm();")
 
-            p.errorMessage #{errorMessage}
+            if errorMessage
+                p.errorMessage.alert.alert-danger #{errorMessage}
 
             input(type="text", name="firstName", placeholder="First name", value=firstName required="")
             input(type="text", name="lastName", placeholder="Last name", value=lastName required="")

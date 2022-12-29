@@ -5,7 +5,8 @@ block content
         h1 Login
         form(method="post")
 
-            p.errorMessage #{errorMessage}
+            if errorMessage
+                p.errorMessage.alert.alert-danger #{errorMessage}
 
             input(type="text", name="logUsername", placeholder="Username or email", value=logUsername required="")
             input(type="password", name="logPassword", placeholder="Password", required="")
