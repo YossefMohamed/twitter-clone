@@ -17,7 +17,6 @@ router.post("/", async (req: any, res, next) => {
         { email: req.body.logUsername },
       ],
     }).catch((error: Error) => {
-      console.log(error);
       payload.errorMessage = "Something went wrong.";
       res.status(200).render("login", payload);
     });

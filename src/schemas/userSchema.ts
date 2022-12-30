@@ -36,8 +36,17 @@ userSchema.virtual("likes", {
   foreignField: "likes",
 });
 
+userSchema.virtual("retweets", {
+  ref: "Post",
+  localField: "_id",
+  foreignField: "retweetUsers",
+});
+
 userSchema.pre(/^find/, function (this, next) {
-  this.populate("likes");
+  this.populate([
+    { path: "likes", select: "_id -likes" },
+    { path: "retweets", select: "_id -retweetUsers" },
+  ]);
   next();
 });
 const User = mongoose.model("User", userSchema);

@@ -82,9 +82,17 @@ const createPost = (postData) => {
                                   <i class='far fa-comment'></i>
                               </button>
                           </div>
-                          <div class='postButtonContainer'>
-                              <button>
+                              <div class='postButtonContainer'>
+                              <button class='retweetButton green'>
+                                  <span class="likeSpan ${
+                                    postData.likes.includes(currentUser) &&
+                                    "active"
+                                  }">
                                   <i class='fas fa-retweet'></i>
+                                  <span>
+                                  <span class="likesCounter">
+                                  ${postData.likes.length || ""}
+                                </span>
                               </button>
                           </div>
                           <div class='postButtonContainer red likeContainer'>
@@ -126,6 +134,7 @@ const deleteNoResult = () => {
     document.querySelector(".no-result").style.display = "none";
 };
 
+// like button
 document.addEventListener("click", (event) => {
   const buttonElements = document.querySelectorAll(".likeButton");
   for (let i = 0; i < buttonElements.length; i++) {
@@ -142,6 +151,30 @@ document.addEventListener("click", (event) => {
             : buttonElements[i]
                 .querySelector(".likeSpan")
                 .classList.remove("active");
+        });
+      }
+    }
+  }
+});
+
+// retweet button
+document.addEventListener("click", (event) => {
+  const buttonElements = document.querySelectorAll(".retweetButton");
+  for (let i = 0; i < buttonElements.length; i++) {
+    if (buttonElements[i].contains(event.target)) {
+      const postId = getPostIdFromElement(buttonElements[i]);
+      if (postId) {
+        axios.post("/api/post/" + postId + "/retweet").then((res) => {
+          console.log(res);
+          // buttonElements[i].querySelector(".likesCounter").innerHTML =
+          //   res.data.data.likes.length || "";
+          // res.data.data.likes.includes(currentUser)
+          //   ? buttonElements[i]
+          //       .querySelector(".likeSpan")
+          //       .classList.add("active")
+          //   : buttonElements[i]
+          //       .querySelector(".likeSpan")
+          //       .classList.remove("active");
         });
       }
     }
