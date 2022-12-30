@@ -60,7 +60,7 @@ const createPost = (postData) => {
   let timestamp = postData.createdAt;
   timestamp = moment(timestamp).from();
   timestamp = timestamp[0].toUpperCase() + timestamp.substring(1);
-  return `<div class='post'>
+  return `<div class='post' data-id=${postData._id}>
               <div class='mainContentContainer'>
                   <div class='userImageContainer'>
                       <img src='${postedBy.profilePic}'>
@@ -86,7 +86,7 @@ const createPost = (postData) => {
                               </button>
                           </div>
                           <div class='postButtonContainer'>
-                              <button>
+                              <button class="likeButton">
                                   <i class='far fa-heart'></i>
                               </button>
                           </div>
@@ -113,4 +113,24 @@ const deleteSpinner = () => {
 const deleteNoResult = () => {
   if (document.querySelector(".no-result"))
     document.querySelector(".no-result").style.display = "none";
+};
+
+document.addEventListener("click", (event) => {
+  const buttonElements = document.querySelectorAll(".likeButton");
+  for (let i = 0; i < buttonElements.length; i++) {
+    if (buttonElements[i].contains(event.target)) {
+      const postId = getPostIdFromElement(buttonElements[i]);
+      console.log(postId);
+      if (postId) {
+        axios.patch("/api/post/" + postId + "/like").then(console.log);
+      }
+    }
+  }
+});
+
+const getPostIdFromElement = (element) => {
+  const isRoot = element.classList.contains("post");
+  const rootElement = isRoot ? element : element.closest(".post");
+  const postId = rootElement.getAttribute("data-id");
+  return postId;
 };

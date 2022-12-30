@@ -6,16 +6,18 @@ const Schema = mongoose.Schema;
 export interface IPost extends mongoose.Document {
   content: string;
   postedBy: PopulatedDoc<IUser>;
+  likes: PopulatedDoc<IUser>[];
   pinned: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-const postSchema = new Schema(
+const postSchema: mongoose.Schema<IPost> = new mongoose.Schema<IPost>(
   {
     content: { type: String, required: true, trim: true },
     pinned: { type: Boolean, default: false },
     postedBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    likes: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
   },
   { timestamps: true }
 );

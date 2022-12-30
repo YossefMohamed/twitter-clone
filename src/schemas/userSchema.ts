@@ -13,7 +13,7 @@ export interface IUser extends mongoose.Document {
   updatedAt?: Date;
 }
 
-const userSchema = new Schema(
+const userSchema: mongoose.Schema<IUser> = new mongoose.Schema<IUser>(
   {
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, required: true, trim: true },
@@ -22,8 +22,23 @@ const userSchema = new Schema(
     password: { type: String, required: true },
     profilePic: { type: String, default: "/images/profilePic.png" },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
+  }
 );
 
+userSchema.virtual("likes", {
+  ref: "Post",
+  localField: "_id",
+  foreignField: "likes",
+});
+
+userSchema.pre(/^find/, function (this, next) {
+  this.populate("likes");
+  next();
+});
 const User = mongoose.model("User", userSchema);
 export default User;
