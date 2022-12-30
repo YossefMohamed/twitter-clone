@@ -6,9 +6,12 @@
   --spacing: 15px;
   --greyText: rgb(101, 119, 134);
   --greyButtonText: rgba(0, 0, 0, 0.34);
+  --red: rgb(226, 34, 94);
 }
 
 * {
+  -webkit-transition: 200ms all ease-in-out;
+  transition: 200ms all ease-in-out;
   outline: none !important;
 }
 
@@ -28,9 +31,16 @@ h1 {
 }
 
 nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   height: 100%;
 }
 
@@ -39,9 +49,15 @@ nav a {
   font-size: 30px;
   width: 55px;
   height: 55px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   color: #212529;
 }
 
@@ -65,29 +81,44 @@ button {
   padding: 0;
   border-left: 1px solid var(--lightGrey);
   border-right: 1px solid var(--lightGrey);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   min-height: 100vh;
 }
 
 .titleContainer {
   height: 53px;
   padding: 0 var(--spacing);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-bottom: 1px solid var(--lightGrey);
-  flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 
 .titleContainer h1 {
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .postFormContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   padding: var(--spacing);
-  border-bottom: 10px solid rgb(230, 236, 240);
-  flex-shrink: 0;
+  border-bottom: 10px solid #e6ecf0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 
 .userImageContainer {
@@ -102,7 +133,9 @@ button {
 }
 
 .textareaContainer {
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   padding-left: var(--spacing);
 }
 
@@ -126,24 +159,41 @@ button {
 }
 
 .post {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: var(--spacing);
   cursor: pointer;
   border-bottom: 1px solid var(--lightGrey);
-  flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 
 .mainContentContainer {
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 .postContentContainer {
   padding-left: var(--spacing);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .username,
@@ -156,17 +206,26 @@ button {
 }
 
 .postFooter {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .postFooter .postButtonContainer {
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 .postFooter .postButtonContainer button {
   padding: 2px 5px;
+  border-radius: 50%;
 }
 
 .header a:hover {
@@ -181,8 +240,23 @@ button {
 .postButtonContainer button:hover {
   background-color: #d4edff;
   color: var(--blue);
-  border-radius: 50%;
 }
+
 .postBody {
   padding: 10px 0;
 }
+
+.likeContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: var(--greyText);
+}
+
+.red .active {
+  color: var(--red);
+}
+/*# sourceMappingURL=main.css.map */

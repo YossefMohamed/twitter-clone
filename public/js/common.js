@@ -67,7 +67,9 @@ const createPost = (postData) => {
                   </div>
                   <div class='postContentContainer'>
                       <div class='header'>
-                          <a href='/profile/${postedBy.username}' class='displayName'>${displayName}</a>
+                          <a href='/profile/${
+                            postedBy.username
+                          }' class='displayName'>${displayName}</a>
                           <span class='username'>@${postedBy.username}</span>
                           <span class='date'>${timestamp}</span>
                       </div>
@@ -85,10 +87,19 @@ const createPost = (postData) => {
                                   <i class='fas fa-retweet'></i>
                               </button>
                           </div>
-                          <div class='postButtonContainer'>
+                          <div class='postButtonContainer red likeContainer'>
                               <button class="likeButton">
+                                  <span class="likeSpan ${
+                                    postData.likes.includes(currentUser) &&
+                                    "active"
+                                  }">
                                   <i class='far fa-heart'></i>
+                                  <span>
+                                  <span class="likesCounter">
+                                  ${postData.likes.length || ""}
+                                </span>
                               </button>
+                             
                           </div>
                       </div>
                   </div>
@@ -120,9 +131,18 @@ document.addEventListener("click", (event) => {
   for (let i = 0; i < buttonElements.length; i++) {
     if (buttonElements[i].contains(event.target)) {
       const postId = getPostIdFromElement(buttonElements[i]);
-      console.log(postId);
       if (postId) {
-        axios.patch("/api/post/" + postId + "/like").then(console.log);
+        axios.patch("/api/post/" + postId + "/like").then((res) => {
+          buttonElements[i].querySelector(".likesCounter").innerHTML =
+            res.data.data.likes.length || "";
+          res.data.data.likes.includes(currentUser)
+            ? buttonElements[i]
+                .querySelector(".likeSpan")
+                .classList.add("active")
+            : buttonElements[i]
+                .querySelector(".likeSpan")
+                .classList.remove("active");
+        });
       }
     }
   }

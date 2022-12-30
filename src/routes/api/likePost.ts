@@ -8,7 +8,7 @@ const router = Router();
 router.patch("/:id/like", async (req: any, res, next) => {
   const postId = req.params.id;
   const isLiked =
-    req.session.user.likes &&
+    req.session.user?.likes &&
     req.session.user.likes.map(
       (post: { _id: ObjectId }) => `${postId}` === `${post._id}`
     );
