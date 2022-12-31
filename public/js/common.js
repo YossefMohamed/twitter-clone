@@ -226,13 +226,15 @@ replyTextBox.addEventListener("keyup", (event) => {
 
 document.addEventListener("click", (event) => {
   const buttonElements = document.querySelectorAll(".replyButton");
+
   for (let i = 0; i < buttonElements.length; i++) {
     if (buttonElements[i].contains(event.target)) {
       const postId = getPostIdFromElement(buttonElements[i]);
       console.log(postId);
 
       axios.get("/api/posts/" + postId).then((res) => {
-        console.log(res);
+        replyTextBox.value = "";
+        replySubmitButton.disabled = true;
         const postInModel = document.querySelector(".postContainerModel");
         postInModel.innerHTML =
           createPost(res.data.data) +
