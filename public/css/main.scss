@@ -3,6 +3,7 @@
   --blueLight: #9bd1f9;
   --buttonHoverBg: #d4edff;
   --lightGrey: rgb(230, 236, 240);
+  --lightHover: rgba(230, 240, 247, 0.485);
   --spacing: 10px;
   --greyText: rgb(101, 119, 134);
   --greyButtonText: rgba(0, 0, 0, 0.34);
@@ -135,6 +136,9 @@ button {
   cursor: pointer;
   border-bottom: 1px solid var(--lightGrey);
   flex-shrink: 0;
+  &:hover {
+    background-color: var(--lightHover);
+  }
 }
 
 .mainContentContainer {
@@ -215,7 +219,7 @@ button {
     gap: 6px;
     &:hover {
       text-decoration: underline;
-      color: #000;
+      color: var(--blue);
     }
   }
 }
