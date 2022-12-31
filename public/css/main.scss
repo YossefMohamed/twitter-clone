@@ -3,10 +3,11 @@
   --blueLight: #9bd1f9;
   --buttonHoverBg: #d4edff;
   --lightGrey: rgb(230, 236, 240);
-  --spacing: 15px;
+  --spacing: 10px;
   --greyText: rgb(101, 119, 134);
   --greyButtonText: rgba(0, 0, 0, 0.34);
   --red: rgb(226, 34, 94);
+  --green: #068a21;
 }
 
 * {
@@ -197,4 +198,24 @@ button {
 
 .red .active {
   color: var(--red);
+}
+
+.green .active {
+  color: var(--green);
+}
+
+.postActionContainer {
+  margin: 0px 0 10px 20px;
+  font-size: 13px;
+  color: var(--greyText);
+
+  & .username {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    &:hover {
+      text-decoration: underline;
+      color: #000;
+    }
+  }
 }

@@ -54,13 +54,33 @@ submitButton.addEventListener("click", () => {
 });
 
 const createPost = (postData) => {
-  const postedBy = postData.postedBy;
+  console.log(postData);
+  const isRetweet = !!postData.retweetData;
+  const retweetedBy = isRetweet ? postData.postedBy : null;
 
+  postData = isRetweet ? postData.retweetData : postData;
+  const postedBy = postData.postedBy;
+  console.log(isRetweet);
   const displayName = postedBy.firstName + " " + postedBy.lastName;
   let timestamp = postData.createdAt;
   timestamp = moment(timestamp).from();
   timestamp = timestamp[0].toUpperCase() + timestamp.substring(1);
   return `<div class='post' data-id=${postData._id}>
+  ${
+    isRetweet
+      ? `
+        <div class="postActionContainer ">
+        <a href="/profile/${
+          retweetedBy._id
+        }" class="username"> <i class='fas fa-retweet'></i> ${
+          retweetedBy.firstName + " " + retweetedBy.lastName
+        }  Retweeted </a>
+
+        </div>
+      `
+      : ""
+  }
+
               <div class='mainContentContainer'>
                   <div class='userImageContainer'>
                       <img src='${postedBy.profilePic}'>
@@ -84,14 +104,15 @@ const createPost = (postData) => {
                           </div>
                               <div class='postButtonContainer'>
                               <button class='retweetButton green'>
-                                  <span class="likeSpan ${
-                                    postData.likes.includes(currentUser) &&
-                                    "active"
+                                  <span class="retweetSpan ${
+                                    postData.retweetUsers.includes(
+                                      currentUser
+                                    ) && "active"
                                   }">
                                   <i class='fas fa-retweet'></i>
                                   <span>
-                                  <span class="likesCounter">
-                                  ${postData.likes.length || ""}
+                                  <span class="retweetCounter">
+                                  ${postData.retweetUsers.length || ""}
                                 </span>
                               </button>
                           </div>
@@ -166,15 +187,15 @@ document.addEventListener("click", (event) => {
       if (postId) {
         axios.post("/api/post/" + postId + "/retweet").then((res) => {
           console.log(res);
-          // buttonElements[i].querySelector(".likesCounter").innerHTML =
-          //   res.data.data.likes.length || "";
-          // res.data.data.likes.includes(currentUser)
-          //   ? buttonElements[i]
-          //       .querySelector(".likeSpan")
-          //       .classList.add("active")
-          //   : buttonElements[i]
-          //       .querySelector(".likeSpan")
-          //       .classList.remove("active");
+          buttonElements[i].querySelector(".retweetCounter").innerHTML =
+            res.data.data.retweetUsers.length || "";
+          res.data.data.retweetUsers.includes(currentUser)
+            ? buttonElements[i]
+                .querySelector(".retweetSpan")
+                .classList.add("active")
+            : buttonElements[i]
+                .querySelector(".retweetSpan")
+                .classList.remove("active");
         });
       }
     }

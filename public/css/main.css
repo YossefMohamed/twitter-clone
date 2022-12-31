@@ -3,14 +3,14 @@
   --blueLight: #9bd1f9;
   --buttonHoverBg: #d4edff;
   --lightGrey: rgb(230, 236, 240);
-  --spacing: 15px;
+  --spacing: 10px;
   --greyText: rgb(101, 119, 134);
   --greyButtonText: rgba(0, 0, 0, 0.34);
   --red: rgb(226, 34, 94);
+  --green: #068a21;
 }
 
 * {
-  -webkit-transition: 200ms all ease-in-out;
   transition: 200ms all ease-in-out;
   outline: none !important;
 }
@@ -31,16 +31,9 @@ h1 {
 }
 
 nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
   height: 100%;
 }
 
@@ -49,15 +42,9 @@ nav a {
   font-size: 30px;
   width: 55px;
   height: 55px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   color: #212529;
 }
 
@@ -81,44 +68,29 @@ button {
   padding: 0;
   border-left: 1px solid var(--lightGrey);
   border-right: 1px solid var(--lightGrey);
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   min-height: 100vh;
 }
 
 .titleContainer {
   height: 53px;
   padding: 0 var(--spacing);
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   border-bottom: 1px solid var(--lightGrey);
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 .titleContainer h1 {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex: 1;
 }
 
 .postFormContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   padding: var(--spacing);
-  border-bottom: 10px solid #e6ecf0;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
+  border-bottom: 10px solid rgb(230, 236, 240);
+  flex-shrink: 0;
 }
 
 .userImageContainer {
@@ -133,9 +105,7 @@ button {
 }
 
 .textareaContainer {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex: 1;
   padding-left: var(--spacing);
 }
 
@@ -159,41 +129,24 @@ button {
 }
 
 .post {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   padding: var(--spacing);
   cursor: pointer;
   border-bottom: 1px solid var(--lightGrey);
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 .mainContentContainer {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  flex: 1;
   display: flex;
 }
 
 .postContentContainer {
   padding-left: var(--spacing);
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex-direction: column;
+  flex: 1;
 }
 
 .username,
@@ -206,20 +159,12 @@ button {
 }
 
 .postFooter {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .postFooter .postButtonContainer {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  flex: 1;
   display: flex;
 }
 
@@ -247,16 +192,30 @@ button {
 }
 
 .likeContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   color: var(--greyText);
 }
 
 .red .active {
   color: var(--red);
 }
-/*# sourceMappingURL=main.css.map */
+
+.green .active {
+  color: var(--green);
+}
+
+.postActionContainer {
+  margin: 0px 0 10px 20px;
+  font-size: 13px;
+  color: var(--greyText);
+}
+.postActionContainer .username {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.postActionContainer .username:hover {
+  text-decoration: underline;
+  color: #000;
+}/*# sourceMappingURL=main.css.map */

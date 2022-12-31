@@ -11,7 +11,6 @@ router.post("/:id/retweet", async (req: any, res, next) => {
     const userId = req.session.user._id;
 
     // try and delete retweet
-
     const deletedPost = await Post.findOneAndDelete({
       postedBy: userId,
       retweetData: postId,

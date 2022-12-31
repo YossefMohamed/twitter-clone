@@ -3,7 +3,22 @@ import Post from "../../../schemas/postSchema";
 const router = Router();
 
 router.get("/", async (req: any, res, next) => {
-  const posts = await Post.find().populate("postedBy").sort("createdAt");
+  const posts = await Post.find()
+    .populate([
+      {
+        path: "postedBy",
+        select: "_id name profilePic firstName lastName username",
+      },
+      {
+        path: "retweetData",
+        populate: {
+          path: "postedBy",
+          select: "_id name profilePic firstName lastName username",
+        },
+      },
+    ])
+    .sort("createdAt");
+
   res.status(200).json({
     status: "ok",
     data: posts,
