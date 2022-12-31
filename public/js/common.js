@@ -98,7 +98,7 @@ const createPost = (postData) => {
                       </div>
                       <div class='postFooter'>
                           <div class='postButtonContainer'>
-                              <button>
+                              <button data-toggle="modal" data-target="#replyModel">
                                   <i class='far fa-comment'></i>
                               </button>
                           </div>

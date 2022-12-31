@@ -222,4 +222,10 @@ button {
 .postActionContainer .username:hover {
   text-decoration: underline;
   color: var(--blue);
+}
+
+.modal .postFormContainer {
+  border: none;
+  padding: 0;
+  padding-top: var(--spacing);
 }/*# sourceMappingURL=main.css.map */
