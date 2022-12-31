@@ -227,5 +227,9 @@ button {
 .modal .postFormContainer {
   border: none;
   padding: 0;
-  padding-top: var(--spacing);
+  padding: var(--spacing);
+}
+
+div .modal-body {
+  padding: none !important;
 }

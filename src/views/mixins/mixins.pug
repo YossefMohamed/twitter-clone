@@ -16,11 +16,12 @@ mixin createReplyModel(userLoggedIn)
                 .modal-header
                     button.close(type='button' data-dismiss='modal' aria-label='Close')
                         span(aria-hidden='true') &times;
-                .modal-body
+                .modal-body.py-0
+                    .postContainerModel
                     .postFormContainer
                         .userImageContainer
                             img(src=userLoggedIn.profilePic, alt="User's profile picture")
                         .textareaContainer
-                            textarea#postTextarea(placeholder="Tweet your reply")
+                            textarea#replyTextarea(placeholder="Tweet your reply")
                 .modal-footer
                     button#submitReplyButton.btn.btn-primary(type='button',disabled="") Reply

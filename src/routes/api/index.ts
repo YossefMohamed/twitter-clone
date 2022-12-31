@@ -1,14 +1,15 @@
 import { Router } from "express";
 import { createPostsRouter } from "./post/addPost";
-import { getPostRouter } from "./post/getPosts";
+import { getPostRouter } from "./post/getPost";
+import { getPostsRouter } from "./post/getPosts";
 import { likePostRouter } from "./post/likePost";
 import { retweetPostRouter } from "./post/retweetPost";
 
 const router = Router();
-
-router.use("/post", createPostsRouter);
-router.use("/post", getPostRouter);
-router.use("/post", likePostRouter);
-router.use("/post", retweetPostRouter);
+router.use("/posts", createPostsRouter);
+router.use("/posts", getPostsRouter);
+router.use("/posts", likePostRouter);
+router.use("/posts", retweetPostRouter);
+router.use("/posts", getPostRouter);
 
 export { router as ApiRouter };

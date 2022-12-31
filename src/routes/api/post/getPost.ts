@@ -2,8 +2,10 @@ import { NextFunction, Request, Response, Router } from "express";
 import Post from "../../../schemas/postSchema";
 const router = Router();
 
-router.get("/", async (req: any, res, next) => {
-  const posts = await Post.find()
+router.get("/:id", async (req: any, res, next) => {
+  const posts = await Post.findOne({
+    _id: req.params.id,
+  })
     .populate([
       {
         path: "postedBy",
@@ -25,4 +27,4 @@ router.get("/", async (req: any, res, next) => {
   });
 });
 
-export { router as getPostsRouter };
+export { router as getPostRouter };

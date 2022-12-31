@@ -2,7 +2,7 @@ $(document).ready(() => {
   document.querySelector(".postContainer").innerHTML = getSpinner();
 
   axios
-    .get("/api/post")
+    .get("/api/posts")
     .then((res) => {
       deleteSpinner();
       if (!res.data.data.length) {
