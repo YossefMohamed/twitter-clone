@@ -32,7 +32,6 @@ router.post("/:id/retweet", async (req: any, res, next) => {
       });
     }
 
-
     const post = await Post.findByIdAndUpdate(
       new ObjectId(postId),
       {

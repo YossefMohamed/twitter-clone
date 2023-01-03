@@ -230,12 +230,11 @@ document.addEventListener("click", (event) => {
   for (let i = 0; i < buttonElements.length; i++) {
     if (buttonElements[i].contains(event.target)) {
       const postId = getPostIdFromElement(buttonElements[i]);
-      console.log(postId);
-
+      const postInModel = document.querySelector(".postContainerModel");
+      postInModel.innerHTML = getSpinner();
+      replyTextBox.value = "";
+      replySubmitButton.disabled = true;
       axios.get("/api/posts/" + postId).then((res) => {
-        replyTextBox.value = "";
-        replySubmitButton.disabled = true;
-        const postInModel = document.querySelector(".postContainerModel");
         postInModel.innerHTML =
           createPost(res.data.data) +
           `<h6 class="p-2 ">
