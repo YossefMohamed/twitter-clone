@@ -27,8 +27,21 @@ const postSchema: mongoose.Schema<IPost> = new mongoose.Schema<IPost>(
     retweetData: { type: Schema.Types.ObjectId, ref: "Post" },
     replyTo: { type: Schema.Types.ObjectId, ref: "Post" },
   },
-  { timestamps: true }
+  { timestamps: true, virtuals: true }
 );
+
+postSchema.virtual("replies", {
+  ref: "Post",
+  localField: "_id",
+  foreignField: "replyTo",
+});
+
+postSchema.pre(/^find/, async function (this, next) {
+  console.log(await this.model.findOne(this.getQuery()));
+
+  this.populate("replies");
+  next();
+});
 
 const Post = mongoose.model("Post", postSchema);
 export default Post;

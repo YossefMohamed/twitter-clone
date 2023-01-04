@@ -1,0 +1,11 @@
+extends layouts/main-layout.pug
+
+block content   
+    script.  
+        const currentPostId = "!{postId}"
+    .postContainer
+    +createReplyModel(userLoggedIn)
+    
+
+block scripts   
+    script(src="/js/postPage.js") 

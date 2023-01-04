@@ -16,6 +16,7 @@ import loginRouter from "./routes/loginRoutes";
 import registerRouter from "./routes/registerRoutes";
 import { requireLogin } from "./middlewares/requireLogin";
 import { ApiRouter } from "./routes/api";
+import postRoutes from "./routes/postRoutes";
 declare module "express" {
   export interface Request {
     session: {
@@ -62,5 +63,6 @@ app.get("/", requireLogin, (req: any, res, next) => {
 
   res.status(200).render("home", payload);
 });
+app.use("/posts/:id", requireLogin, postRoutes);
 
 export { app };

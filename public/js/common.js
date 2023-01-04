@@ -17,7 +17,7 @@
 const textbox = document.querySelector("#postTextarea");
 const submitButton = document.querySelector("#submitPostButton");
 
-textbox.addEventListener("keyup", (event) => {
+textbox?.addEventListener("keyup", (event) => {
   const textboxValue = textbox.value.trim();
   if (textboxValue.length) {
     submitButton.disabled = false;
@@ -27,7 +27,7 @@ textbox.addEventListener("keyup", (event) => {
   submitButton.disabled = true;
 });
 
-submitButton.addEventListener("click", () => {
+submitButton?.addEventListener("click", () => {
   const textboxValue = textbox.value.trim();
   // console.log(textboxValue);
   const data = {
@@ -282,6 +282,6 @@ $(document).on("click", ".post", (event) => {
   const postId = getPostIdFromElement(event.target);
   const element = $(event.target);
   if (postId && !element.is("i")) {
-    window.location.href = `/post/${postId}`;
+    window.location.href = `/posts/${postId}`;
   }
 });
