@@ -13,7 +13,7 @@ router.post("/", async (req: any, res, next) => {
     }
     let post = await Post.create({
       content: req.body.content,
-      postedBy: req.session.user,
+      postedBy: req.session.user._id,
     });
     post = await post.populate("postedBy");
     res.status(200).json({

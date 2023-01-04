@@ -16,6 +16,13 @@ router.get("/", async (req: any, res, next) => {
           select: "_id name profilePic firstName lastName username",
         },
       },
+      {
+        path: "replyTo",
+        populate: {
+          path: "postedBy",
+          select: "_id name profilePic firstName lastName username",
+        },
+      },
     ])
     .sort("createdAt");
 

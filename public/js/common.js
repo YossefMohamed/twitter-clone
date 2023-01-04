@@ -59,12 +59,25 @@ const createPost = (postData) => {
   const retweetedBy = isRetweet ? postData.postedBy : null;
 
   postData = isRetweet ? postData.retweetData : postData;
+
   const postedBy = postData.postedBy;
   // console.log(isRetweet);
   const displayName = postedBy.firstName + " " + postedBy.lastName;
   let timestamp = postData.createdAt;
   timestamp = moment(timestamp).from();
   timestamp = timestamp[0].toUpperCase() + timestamp.substring(1);
+
+  let replyFlag = "";
+  if (postData.replyTo) {
+    if (!postData.replyTo._id) {
+      return alert("Reply to is not populated");
+    }
+    replyFlag = `
+      <div class="replyFlag">
+      Replying to <a href="/profile/${postData.replyTo.postedBy.username}" >@${postData.replyTo.postedBy.username}</a>
+      </div>
+    `;
+  }
   return `<div class='post postData' data-id=${postData._id}>
   ${
     isRetweet
@@ -94,6 +107,7 @@ const createPost = (postData) => {
                           <span class='date'>${timestamp}</span>
                       </div>
                       <div class='postBody'>
+                      ${replyFlag}
                           <span>${postData.content}</span>
                       </div>
                       <div class='postFooter'>
@@ -214,6 +228,7 @@ const getPostIdFromElement = (element) => {
 const replyTextBox = document.querySelector("#replyTextarea");
 const replySubmitButton = document.querySelector("#submitReplyButton");
 
+// replyHandler
 replyTextBox.addEventListener("keyup", (event) => {
   const textboxValue = replyTextBox.value.trim();
   if (textboxValue.length) {
@@ -224,12 +239,26 @@ replyTextBox.addEventListener("keyup", (event) => {
   replySubmitButton.disabled = true;
 });
 
+// send reply to the server
+replySubmitButton.addEventListener("click", () => {
+  const textboxValue = replyTextBox.value.trim();
+
+  axios
+    .post("/api/posts/" + postId + "/reply", {
+      content: textboxValue,
+    })
+    .then((res) => {
+      location.reload();
+    });
+});
+
+let postId;
 document.addEventListener("click", (event) => {
   const buttonElements = document.querySelectorAll(".replyButton");
 
   for (let i = 0; i < buttonElements.length; i++) {
     if (buttonElements[i].contains(event.target)) {
-      const postId = getPostIdFromElement(buttonElements[i]);
+      postId = getPostIdFromElement(buttonElements[i]);
       const postInModel = document.querySelector(".postContainerModel");
       postInModel.innerHTML = getSpinner();
       replyTextBox.value = "";

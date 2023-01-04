@@ -8,7 +8,8 @@ export interface IPost extends mongoose.Document {
   postedBy: PopulatedDoc<IUser>;
   likes: PopulatedDoc<IUser>[];
   retweetUsers: PopulatedDoc<IUser>[];
-  retweetData: PopulatedDoc<IUser>;
+  retweetData: PopulatedDoc<IPost>;
+  replyTo: PopulatedDoc<IPost>;
   pinned: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -24,6 +25,7 @@ const postSchema: mongoose.Schema<IPost> = new mongoose.Schema<IPost>(
       { type: Schema.Types.ObjectId, ref: "User", required: true },
     ],
     retweetData: { type: Schema.Types.ObjectId, ref: "Post" },
+    replyTo: { type: Schema.Types.ObjectId, ref: "Post" },
   },
   { timestamps: true }
 );
