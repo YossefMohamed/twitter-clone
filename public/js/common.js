@@ -69,6 +69,7 @@ const createPost = (postData) => {
 
   let replyFlag = "";
   if (postData.replyTo) {
+    console.log(postData);
     if (!postData.replyTo._id) {
       return alert("Reply to is not populated");
     }
@@ -252,6 +253,7 @@ replySubmitButton.addEventListener("click", () => {
     });
 });
 
+// reply post
 let postId;
 document.addEventListener("click", (event) => {
   const buttonElements = document.querySelectorAll(".replyButton");
@@ -272,5 +274,14 @@ document.addEventListener("click", (event) => {
         postInModel.querySelector(".postFooter").style.display = "none";
       });
     }
+  }
+});
+
+// go to post page
+$(document).on("click", ".post", (event) => {
+  const postId = getPostIdFromElement(event.target);
+  const element = $(event.target);
+  if (postId && !element.is("i")) {
+    window.location.href = `/post/${postId}`;
   }
 });

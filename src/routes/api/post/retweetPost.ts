@@ -32,7 +32,7 @@ router.post("/:id/retweet", async (req: any, res, next) => {
       });
     }
 
-    const post = await Post.findByIdAndUpdate(
+    let post = await Post.findByIdAndUpdate(
       new ObjectId(postId),
       {
         [option]: { retweetUsers: userId },
@@ -41,6 +41,9 @@ router.post("/:id/retweet", async (req: any, res, next) => {
         new: true,
       }
     );
+
+    console.log(post);
+
     req.session.user = await User.findById(req.session.user._id);
 
     return res.status(200).json({
