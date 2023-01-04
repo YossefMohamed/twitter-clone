@@ -55,6 +55,8 @@ submitButton?.addEventListener("click", () => {
 
 const createPost = (postData) => {
   // console.log(postData);
+  console.log(postData, "s");
+
   const isRetweet = !!postData.retweetData;
   const retweetedBy = isRetweet ? postData.postedBy : null;
 
@@ -62,14 +64,14 @@ const createPost = (postData) => {
 
   const postedBy = postData.postedBy;
   // console.log(isRetweet);
+
   const displayName = postedBy.firstName + " " + postedBy.lastName;
   let timestamp = postData.createdAt;
   timestamp = moment(timestamp).from();
   timestamp = timestamp[0].toUpperCase() + timestamp.substring(1);
 
   let replyFlag = "";
-  if (postData.replyTo) {
-    console.log(postData);
+  if (postData.replyTo && postData.replyTo._id) {
     if (!postData.replyTo._id) {
       return alert("Reply to is not populated");
     }
@@ -267,9 +269,9 @@ document.addEventListener("click", (event) => {
       replySubmitButton.disabled = true;
       axios.get("/api/posts/" + postId).then((res) => {
         postInModel.innerHTML =
-          createPost(res.data.data) +
+          createPost(res.data.data.post) +
           `<h6 class="p-2 ">
-        Replaying to <a href="/profile/${res.data.data.postedBy.username}"> @${res.data.data.postedBy.username} </a>
+        Replaying to <a href="/profile/${res.data.data.post.postedBy.username}"> @${res.data.data.post.postedBy.username} </a>
         </h6>`;
         postInModel.querySelector(".postFooter").style.display = "none";
       });

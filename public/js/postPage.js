@@ -5,11 +5,25 @@ $(document).ready(() => {
     .get("/api/posts/" + currentPostId)
     .then((res) => {
       deleteSpinner();
+      console.log(res.data.data);
       if (res.data.data) {
-        console.log(res.data.data);
-        document.querySelector(".postContainer").innerHTML = createPost(
-          res.data.data
-        );
+        if (res.data.data.post.replyTo)
+          document.querySelector(".postContainer").innerHTML = createPost(
+            res.data.data.post.replyTo
+          );
+
+        document.querySelector(".postContainer").innerHTML =
+          document.querySelector(".postContainer").innerHTML +
+          createPost(res.data.data.post);
+
+        if (res.data.data.replies.length) {
+          console.log(res.data.data.replies);
+          res.data.data.replies.map((reply) => {
+            document.querySelector(".postContainer").innerHTML =
+              document.querySelector(".postContainer").innerHTML +
+              createPost(reply);
+          });
+        }
       }
     })
     .catch((error) => {
