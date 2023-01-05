@@ -300,7 +300,11 @@ document.addEventListener("click", (event) => {
         axios
           .delete(`/api/posts/${postId}`)
           .then((res) => {
-            window.location.reload();
+            const postElement = document.querySelector(`[data-id="${postId}"]`);
+            postElement.remove();
+            const closer = document.querySelector(".deleteModelClose");
+            console.log(closer);
+            closer.click();
           })
           .catch((err) => {
             console.log(err);

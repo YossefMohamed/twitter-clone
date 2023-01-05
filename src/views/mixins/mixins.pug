@@ -33,7 +33,7 @@ mixin deletePostModel(userLoggedIn)
         .modal-dialog(role='document')
             .modal-content
                 .modal-header
-                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    button.close.deleteModelClose(type='button' data-dismiss='modal' aria-label='Close')
                         span(aria-hidden='true') &times;
                 .modal-body.py-3  
                        h1.py-3 Delete Tweet?
