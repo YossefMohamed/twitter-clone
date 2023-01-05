@@ -14,5 +14,12 @@ function loadPosts(isReply = false) {
         isReply,
       },
     })
-    .then((res) => console.log(res));
+    .then((res) => {
+      res.data.data.map((post) => {
+        console.log(post);
+        document.querySelector(".postsContainer").innerHTML =
+          createPost(post) +
+          document.querySelector(".postsContainer").innerHTML;
+      });
+    });
 }
