@@ -53,7 +53,7 @@ submitButton?.addEventListener("click", () => {
     });
 });
 
-const createPost = (postData) => {
+const createPost = (postData, largFont = false) => {
   // console.log(postData);
   console.log(postData, "s");
 
@@ -81,7 +81,9 @@ const createPost = (postData) => {
       </div>
     `;
   }
-  return `<div class='post postData' data-id=${postData._id}>
+  return `<div class='post postData ${largFont ? "largFont" : ""}' data-id=${
+    postData._id
+  }>
   ${
     isRetweet
       ? `
@@ -117,6 +119,7 @@ const createPost = (postData) => {
                           <div class='postButtonContainer'>
                               <button class="replyButton"  data-toggle="modal" data-target="#replyModel">
                                   <i class='far fa-comment'></i>
+                                  ${postData.retweetUsers.length || ""}
                               </button>
                           </div>
                               <div class='postButtonContainer'>

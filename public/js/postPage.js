@@ -14,7 +14,7 @@ $(document).ready(() => {
 
         document.querySelector(".postContainer").innerHTML =
           document.querySelector(".postContainer").innerHTML +
-          createPost(res.data.data.post);
+          createPost(res.data.data.post, true);
 
         if (res.data.data.replies.length) {
           console.log(res.data.data.replies);

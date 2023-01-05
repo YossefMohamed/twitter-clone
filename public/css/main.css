@@ -2,6 +2,7 @@
   --blue: #1fa2f1;
   --blueLight: #9bd1f9;
   --buttonHoverBg: #d4edff;
+  --lightHover: #eef5fca1;
   --lightGrey: rgb(230, 236, 240);
   --spacing: 15px;
   --greyText: rgb(101, 119, 134);
@@ -241,4 +242,9 @@ div .modal-body {
 }
 .replyFlag a {
   color: var(--blue);
+}
+
+.largFont {
+  font-size: 18px;
+  background: var(--lightHover);
 }
