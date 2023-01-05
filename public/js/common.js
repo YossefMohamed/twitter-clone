@@ -54,9 +54,6 @@ submitButton?.addEventListener("click", () => {
 });
 
 const createPost = (postData, largFont = false) => {
-  // console.log(postData);
-  console.log(postData, "s");
-
   const isRetweet = !!postData.retweetData;
   const retweetedBy = isRetweet ? postData.postedBy : null;
 
@@ -84,22 +81,31 @@ const createPost = (postData, largFont = false) => {
   return `<div class='post postData ${largFont ? "largFont" : ""}' data-id=${
     postData._id
   }>
+
+
   ${
     isRetweet
       ? `
-        <div class="postActionContainer ">
+        <span class="postActionContainer container">
         <a href="/profile/${
-          retweetedBy._id
+          retweetedBy.username
         }" class="username"> <i class='fas fa-retweet'></i> ${
           retweetedBy.firstName + " " + retweetedBy.lastName
         }  Retweeted </a>
 
-        </div>
+        </span>
       `
       : ""
   }
 
               <div class='mainContentContainer'>
+              ${
+                currentUser === postedBy._id
+                  ? `<button class="closeButton"  data-toggle="modal" data-target="#deleteModel">
+                    <i class="fa fa-close"></i>
+                  </button>`
+                  : ""
+              }
                   <div class='userImageContainer'>
                       <img src='${postedBy.profilePic}'>
                   </div>
@@ -277,6 +283,28 @@ document.addEventListener("click", (event) => {
         Replaying to <a href="/profile/${res.data.data.post.postedBy.username}"> @${res.data.data.post.postedBy.username} </a>
         </h6>`;
         postInModel.querySelector(".postFooter").style.display = "none";
+      });
+    }
+  }
+});
+
+//delete post
+document.addEventListener("click", (event) => {
+  const buttonElements = document.querySelectorAll(".closeButton");
+
+  for (let i = 0; i < buttonElements.length; i++) {
+    if (buttonElements[i].contains(event.target)) {
+      postId = getPostIdFromElement(buttonElements[i]);
+      const submitDelete = document.querySelector("#submitDeleteButton");
+      submitDelete.addEventListener("click", () => {
+        axios
+          .delete(`/api/posts/${postId}`)
+          .then((res) => {
+            window.location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
     }
   }

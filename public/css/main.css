@@ -138,6 +138,7 @@ button {
   cursor: pointer;
   border-bottom: 1px solid var(--lightGrey);
   flex-shrink: 0;
+  position: relative;
 }
 .post:hover {
   background-color: var(--lightHover);
@@ -247,4 +248,17 @@ div .modal-body {
 .largFont {
   font-size: 18px;
   background: var(--lightHover);
+}
+
+.closeButton {
+  text-decoration: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: fit-content;
+}
+.closeButton i {
+  text-decoration: none;
+  font-style: normal;
+  padding: 5px;
 }

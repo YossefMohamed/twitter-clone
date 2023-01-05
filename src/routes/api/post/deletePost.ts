@@ -2,9 +2,11 @@ import { NextFunction, Request, Response, Router } from "express";
 import Post from "../../../schemas/postSchema";
 const router = Router();
 
-router.get("/:id", async (req: any, res, next) => {
+router.delete("/:id", async (req: any, res, next) => {
   const post = await Post.findById(req.params.id);
-  if (!post) {
+  console.log(post?.postedBy, req.session.user);
+
+  if (!post || post.postedBy === req.session.user) {
     return res.status(404).json({
       status: "failed",
       message: "Post is not found",
