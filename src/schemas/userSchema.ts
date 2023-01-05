@@ -12,7 +12,6 @@ export interface IUser extends mongoose.Document {
   createdAt?: Date;
   updatedAt?: Date;
   following: PopulatedDoc<IUser>[];
-  followers: PopulatedDoc<IUser>[];
 }
 
 const userSchema: mongoose.Schema<IUser> = new mongoose.Schema<IUser>(
@@ -24,13 +23,11 @@ const userSchema: mongoose.Schema<IUser> = new mongoose.Schema<IUser>(
     password: { type: String, required: true },
     profilePic: { type: String, default: "/images/profilePic.png" },
     following: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
-    followers: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
   },
   {
     timestamps: true,
-    toJSON: {
-      virtuals: true,
-    },
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 
@@ -46,10 +43,17 @@ userSchema.virtual("retweets", {
   foreignField: "retweetUsers",
 });
 
+userSchema.virtual("followers", {
+  ref: "User",
+  localField: "_id",
+  foreignField: "following",
+});
+
 userSchema.pre(/^find/, function (this, next) {
   this.populate([
     { path: "likes", select: "_id -likes" },
     { path: "retweets", select: "_id -retweetUsers" },
+    { path: "followers", select: "_id -likes" },
   ]);
   next();
 });

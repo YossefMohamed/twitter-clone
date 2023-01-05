@@ -11,6 +11,7 @@
   --redBackground: rgba(226, 34, 94, 0.1);
   --green: rgb(23, 191, 99);
   --greenBackground: rgba(23, 191, 99, 0.1);
+  --danger: #bb0202;
 }
 
 * {
@@ -319,7 +320,10 @@ div .modal-body {
   background-color: var(--blue);
   color: #fff;
 }
-
+.followButton.following:hover {
+  background-color: var(--danger);
+  border-color: var(--danger);
+}
 .profileHeaderContainer .userDetailsContainer {
   display: flex;
   flex-direction: column;

@@ -5,8 +5,9 @@ block content
         span.errorMessage Check the url you are trying to access
     else  
         script.
-            var profileUserId = '!{profileUser._id}';
-            var selectedTab = '!{selectedTab}';
+            const profileUserId = '!{profileUser._id}';
+            let profileUser = '!{JSON.stringify(profileUser)}'
+            const selectedTab = '!{selectedTab}';
             
         .profileHeaderContainer
             .coverPhotoContainer
@@ -25,10 +26,10 @@ block content
 
                 .followersContainer
                     a(href=`/profile/${profileUser.username}/following`)
-                        span.value #{0}
+                        span.value !{profileUser.following.length}
                         span Following
                     a(href=`/profile/${profileUser.username}/followers`)
-                        span.value #{0}
+                        span.value !{profileUser.followers.length}
                         span Followers
         .tabsContainer
             +createTab("Posts", `/profile/${profileUser.username}`, selectedTab != "replies")
