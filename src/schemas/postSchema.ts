@@ -13,7 +13,6 @@ export interface IPost extends mongoose.Document {
   pinned: boolean;
   createdAt?: Date;
   updatedAt?: Date;
-  replies?: mongoose.Document<IPost>[];
 }
 
 const postSchema: mongoose.Schema<IPost> = new mongoose.Schema<IPost>(

@@ -7,6 +7,7 @@ $(document).ready(() => {
 });
 
 function loadPosts(isReply = false) {
+  document.querySelector(".postsContainer").innerHTML = getSpinner();
   axios
     .get("/api/posts", {
       params: {
@@ -21,5 +22,6 @@ function loadPosts(isReply = false) {
           createPost(post) +
           document.querySelector(".postsContainer").innerHTML;
       });
+      deleteSpinner();
     });
 }

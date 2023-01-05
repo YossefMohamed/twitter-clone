@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { PopulatedDoc } from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -11,6 +11,8 @@ export interface IUser extends mongoose.Document {
   profilePic: string;
   createdAt?: Date;
   updatedAt?: Date;
+  following: PopulatedDoc<IUser>[];
+  followers: PopulatedDoc<IUser>[];
 }
 
 const userSchema: mongoose.Schema<IUser> = new mongoose.Schema<IUser>(
@@ -21,6 +23,8 @@ const userSchema: mongoose.Schema<IUser> = new mongoose.Schema<IUser>(
     email: { type: String, required: true, trim: true, unique: true },
     password: { type: String, required: true },
     profilePic: { type: String, default: "/images/profilePic.png" },
+    following: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
+    followers: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
   },
   {
     timestamps: true,
