@@ -303,7 +303,6 @@ document.addEventListener("click", (event) => {
             const postElement = document.querySelector(`[data-id="${postId}"]`);
             postElement.remove();
             const closer = document.querySelector(".deleteModelClose");
-            console.log(closer);
             closer.click();
           })
           .catch((err) => {
