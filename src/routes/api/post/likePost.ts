@@ -14,7 +14,11 @@ router.patch("/:id/like", async (req: any, res, next) => {
       (post: { _id: ObjectId }) => `${postId}` === `${post._id}`
     );
 
-  const option = isLiked.includes(true) ? "$pull" : "$addToSet";
+  const option = isLiked
+    ? isLiked.includes(true)
+      ? "$pull"
+      : "$addToSet"
+    : "$addToSet";
   const post = await Post.findByIdAndUpdate(
     new ObjectId(postId),
     {

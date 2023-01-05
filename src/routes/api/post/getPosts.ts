@@ -3,7 +3,19 @@ import Post from "../../../schemas/postSchema";
 const router = Router();
 
 router.get("/", async (req: any, res, next) => {
-  const posts = await Post.find()
+  const posts = await Post.find(
+    req.query.postedBy
+      ? {
+          postedBy: req.query.postedBy,
+          replyTo:
+            req.query.isReply === "true"
+              ? { $ne: null }
+              : {
+                  $eq: null,
+                },
+        }
+      : {}
+  )
     .populate([
       {
         path: "postedBy",

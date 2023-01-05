@@ -40,3 +40,20 @@ mixin deletePostModel(userLoggedIn)
                        p This can’t be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from Twitter search results. 
                 .modal-footer
                     button#submitDeleteButton.btn.btn-danger(type='button') Delete
+
+mixin createFollowButton(user, isFollowing)
+    - text = isFollowing ? "Following" : "Follow"
+    - buttonClass = isFollowing ? "followButton following" : "followButton"
+    button(class=buttonClass, data-user=user._id) #{text}
+
+mixin createTab(name, href, isSelected)
+    - className = isSelected ? "tab active" : "tab"
+    a(href=href, class=className)
+        span #{name}
+
+
+
+
+mixin createPostModals(userLoggedIn)
+    +createReplyModel(userLoggedIn)
+    +deletePostModel()

@@ -17,6 +17,7 @@ import registerRouter from "./routes/registerRoutes";
 import { requireLogin } from "./middlewares/requireLogin";
 import { ApiRouter } from "./routes/api";
 import postRoutes from "./routes/postRoutes";
+import { profileRoutes } from "./routes/profileRoutes";
 declare module "express" {
   export interface Request {
     session: {
@@ -53,6 +54,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/api", ApiRouter);
+app.use("/profile", requireLogin, profileRoutes);
 
 app.get("/", requireLogin, (req: any, res, next) => {
   var payload = {
