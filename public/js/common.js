@@ -19,7 +19,7 @@ const submitButton = document.querySelector("#submitPostButton");
 
 textbox?.addEventListener("keyup", (event) => {
   const textboxValue = textbox.value.trim();
-  if (textboxValue.length) {
+  if (textboxValue.length && textboxValue.length < 250) {
     submitButton.disabled = false;
 
     return;
@@ -244,7 +244,8 @@ const replySubmitButton = document.querySelector("#submitReplyButton");
 replyTextBox &&
   replyTextBox.addEventListener("keyup", (event) => {
     const textboxValue = replyTextBox.value.trim();
-    if (textboxValue.length) {
+    console.log(textboxValue.length, textboxValue);
+    if (textboxValue.length && textboxValue.length < 250) {
       replySubmitButton.disabled = false;
 
       return;

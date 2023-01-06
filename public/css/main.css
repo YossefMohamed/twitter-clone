@@ -286,6 +286,9 @@ div .modal-body {
   width: 132px;
   height: 132px;
   margin-left: var(--spacing);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   bottom: -66px;
 }
@@ -402,4 +405,11 @@ div .modal-body {
 
 .userImageContainer:hover .profilePictureButton {
   display: block;
+}
+
+#imagePreview {
+  width: 100%;
+  display: block;
+  max-width: 100%;
+  margin-top: 10px;
 }

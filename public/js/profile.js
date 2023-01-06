@@ -1,5 +1,7 @@
 let followButton = document.querySelector(".followButton");
 
+let cropper;
+
 $(document).ready(() => {
   profileUser = JSON.parse(profileUser);
 
@@ -52,6 +54,7 @@ $(document).ready(() => {
     );
   }
   function outputUsers(results, container) {
+    if (!container) return;
     container.innerHTML = "";
 
     results.forEach((result) => {
@@ -103,14 +106,39 @@ $(document).ready(() => {
                     <img src='${userData.profilePic}'>
                 </div>
                 <div class='userDetailsContainer'>
-                    <div class='header'>
-                        <a href='/profile/${userData.username}'>${name}</a>
-                        <span class='username'>@${userData.username}</span>
-                    </div>
+                <div class='header'>
+                <a href='/profile/${userData.username}'>${name}</a>
+                <span class='username'>@${userData.username}</span>
+            </div><div class='header'>
+            <a href='/profile/${userData.username}/following'>${userData.following.length} following</a>
+            <a href='/profile/${userData.username}/followers'>${userData.followers.length} followers</a>
+        </div>
                 </div>
                 ${followButton}
             </div>`;
   }
+
+  document.querySelector("#filePhoto").addEventListener("change", (event) => {
+    const input = event.target;
+    if (input.files && input.files[0]) {
+      console.log("w");
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document
+          .querySelector("#imagePreview")
+          .setAttribute("src", e.target.result);
+
+        if (cropper !== undefined) {
+          cropper.destroy();
+        }
+        cropper = new Cropper(document.querySelector("#imagePreview"), {
+          aspectRatio: 1 / 1,
+          background: false,
+        });
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  });
 });
 
 function loadPosts(isReply = false) {

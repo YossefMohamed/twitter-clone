@@ -41,6 +41,33 @@ mixin deletePostModel(userLoggedIn)
                 .modal-footer
                     button#submitDeleteButton.btn.btn-danger(type='button') Delete
 
+
+
+
+
+
+mixin createImageUploadModal()
+    #imageUploadModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='ImageUploadModelModalLabel' aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#imageUploadModelLabel.model-title Upload a new profile picture
+                    button.close.deleteModelClose(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+                .modal-body.py-5  
+                    input#filePhoto(type="file", name="filePhoto")
+                    .imagePreviewContainer 
+                        img#imagePreview
+                .modal-footer
+                    button.btn.btn-secondary(type='button') Cancel
+                    button#imageUploadButton.btn.btn-primary(type='button') Save
+
+
+
+
+
+
+
 mixin createFollowButton(user, isFollowing)
     - text = isFollowing ? "Following" : "Follow"
     - buttonClass = isFollowing ? "followButton following" : "followButton"
