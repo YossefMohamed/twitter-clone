@@ -121,7 +121,6 @@ $(document).ready(() => {
   document.querySelector("#filePhoto").addEventListener("change", (event) => {
     const input = event.target;
     if (input.files && input.files[0]) {
-      console.log("w");
       const reader = new FileReader();
       reader.onload = (e) => {
         document
@@ -132,6 +131,27 @@ $(document).ready(() => {
           cropper.destroy();
         }
         cropper = new Cropper(document.querySelector("#imagePreview"), {
+          aspectRatio: 1 / 1,
+          background: false,
+        });
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  });
+
+  document.querySelector("#coverPhoto").addEventListener("change", (event) => {
+    const input = event.target;
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document
+          .querySelector("#coverPreview")
+          .setAttribute("src", e.target.result);
+
+        if (cropper !== undefined) {
+          cropper.destroy();
+        }
+        cropper = new Cropper(document.querySelector("#coverPreview"), {
           aspectRatio: 1 / 1,
           background: false,
         });
@@ -152,6 +172,40 @@ $(document).ready(() => {
       canvas.toBlob((blob) => {
         const formData = new FormData();
         formData.append("filePhoto", blob);
+        formData.append("type", "profile");
+        for (var pair of formData.entries()) {
+          console.log(pair[0] + ", " + pair[1]);
+        }
+        axios({
+          method: "post",
+          url: "/api/users/upload",
+          data: formData,
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+          .then(function (response) {
+            //handle success
+            window.location.reload();
+          })
+          .catch(function (response) {
+            //handle error
+            console.log(response);
+          });
+      });
+    });
+
+  document
+    .querySelector("#coverPhotoButton")
+    .addEventListener("click", (event) => {
+      const canvas = cropper.getCroppedCanvas();
+
+      if (!canvas) {
+        alert("Make Sure You Have Uploaded An Image");
+      }
+
+      canvas.toBlob((blob) => {
+        const formData = new FormData();
+        formData.append("filePhoto", blob);
+        formData.append("type", "cover");
         for (var pair of formData.entries()) {
           console.log(pair[0] + ", " + pair[1]);
         }

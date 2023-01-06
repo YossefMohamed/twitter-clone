@@ -2,7 +2,7 @@
   --blue: #1fa2f1;
   --blueLight: #9bd1f9;
   --buttonHoverBg: #d4edff;
-  --lightHover: #eef5fca1;
+  --lightHover: #dbe7f37c;
   --lightGrey: rgb(230, 236, 240);
   --spacing: 15px;
   --greyText: rgb(101, 119, 134);
@@ -412,4 +412,15 @@ div .modal-body {
   display: block;
   max-width: 100%;
   margin: 10px;
+}
+
+button.coverPictureButton {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+button.coverPictureButton:hover {
+  background-color: var(--lightHover);
+  opacity: 1;
 }

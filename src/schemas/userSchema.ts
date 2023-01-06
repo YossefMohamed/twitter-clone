@@ -9,6 +9,7 @@ export interface IUser extends mongoose.Document {
   email: string;
   password: string;
   profilePic: string;
+  coverPic: string;
   createdAt?: Date;
   updatedAt?: Date;
   following: PopulatedDoc<IUser>[];
@@ -22,6 +23,7 @@ const userSchema: mongoose.Schema<IUser> = new mongoose.Schema<IUser>(
     email: { type: String, required: true, trim: true, unique: true },
     password: { type: String, required: true },
     profilePic: { type: String, default: "profilePic.png" },
+    coverPic: { type: String },
     following: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
   },
   {
