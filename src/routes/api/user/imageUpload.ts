@@ -15,7 +15,7 @@ router.post(
             profilePic: req.file.filename,
           })
         : await User.findByIdAndUpdate(req.session.user, {
-            profilePic: req.file.filename,
+            coverPic: req.file.filename,
           });
 
     res.status(200).json({

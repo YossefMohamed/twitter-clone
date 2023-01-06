@@ -10,23 +10,27 @@ block content
             const selectedTab = '!{selectedTab}';
 
         .profileHeaderContainer
-            .coverPhotoContainer
-                if profileUser._id.equals(userLoggedIn._id)
-                    button.coverPictureButton(data-toggle="modal", data-target="#coverPhotoUploadModal")
-                        i.fas.fa-camera
-
-                .userImageContainer
-                    img(src="/images/" + profileUser.profilePic, alt="User profile image")
+            .coverPhotoSection
+                .coverPhotoContainer
+                    if profileUser.coverPic
+                        img(src="/images/" + profileUser.coverPic, alt="User's cover photo")
 
                     if profileUser._id.equals(userLoggedIn._id)
-                        button.profilePictureButton(data-toggle="modal", data-target="#imageUploadModal")
+                        button.coverPictureButton(data-toggle="modal", data-target="#coverPhotoUploadModal")
                             i.fas.fa-camera
 
-            .profileButtonsContainer
-                if profileUser._id != userLoggedIn._id
-                    a.profileButton(href=`/messages/${profileUser._id}`)
-                        i.fas.fa-envelope
-                    +createFollowButton(profileUser, false)
+                    .userImageContainer
+                        img(src="/images/" + profileUser.profilePic, alt="User profile image")
+
+                        if profileUser._id.equals(userLoggedIn._id)
+                            button.profilePictureButton(data-toggle="modal", data-target="#imageUploadModal")
+                                i.fas.fa-camera
+
+                .profileButtonsContainer
+                    if profileUser._id != userLoggedIn._id
+                        a.profileButton(href=`/messages/${profileUser._id}`)
+                            i.fas.fa-envelope
+                        +createFollowButton(profileUser, false)
             .userDetailsContainer
                 span.displayName #{profileUser.firstName} #{profileUser.lastName}
                 span.username @#{profileUser.username}

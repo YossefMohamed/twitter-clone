@@ -152,7 +152,7 @@ $(document).ready(() => {
           cropper.destroy();
         }
         cropper = new Cropper(document.querySelector("#coverPreview"), {
-          aspectRatio: 1 / 1,
+          aspectRatio: 2.5 / 1,
           background: false,
         });
       };
