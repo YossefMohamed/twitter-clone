@@ -55,6 +55,7 @@ submitButton?.addEventListener("click", () => {
 
 const createPost = (postData, largFont = false) => {
   const isRetweet = !!postData.retweetData;
+  const replies = postData.replies ? postData.replies.length || "" : "";
   const retweetedBy = isRetweet ? postData.postedBy : null;
 
   postData = isRetweet ? postData.retweetData : postData;
@@ -66,7 +67,7 @@ const createPost = (postData, largFont = false) => {
   let timestamp = postData.createdAt;
   timestamp = moment(timestamp).from();
   timestamp = timestamp[0].toUpperCase() + timestamp.substring(1);
-  console.log(postedBy.profilePic);
+
   let replyFlag = "";
   if (postData.replyTo && postData.replyTo._id) {
     if (!postData.replyTo._id) {
@@ -125,7 +126,7 @@ const createPost = (postData, largFont = false) => {
                           <div class='postButtonContainer'>
                               <button class="replyButton"  data-toggle="modal" data-target="#replyModel">
                                   <i class='far fa-comment'></i>
-                                  ${postData.retweetUsers.length || ""}
+                                  ${replies}
                               </button>
                           </div>
                               <div class='postButtonContainer'>

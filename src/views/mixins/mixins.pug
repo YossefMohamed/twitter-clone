@@ -37,7 +37,7 @@ mixin deletePostModel(userLoggedIn)
                     button.close.deleteModelClose(type='button' data-dismiss='modal' aria-label='Close')
                         span(aria-hidden='true') &times;
                 .modal-body.py-3  
-                       h1.py-3 Delete Tweet?
+                       h1.pb-3 Delete Tweet?
                        p This can’t be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from Twitter search results. 
                 .modal-footer
                     button#submitDeleteButton.btn.btn-danger(type='button') Delete
@@ -60,7 +60,7 @@ mixin createImageUploadModal()
                     .imagePreviewContainer 
                         img#imagePreview
                 .modal-footer
-                    button.btn.btn-secondary(type='button') Cancel
+                    button.btn.btn-secondary(type='button' ,data-dismiss='modal') Cancel
                     button#imageUploadButton.btn.btn-primary(type='button') Save
 
 

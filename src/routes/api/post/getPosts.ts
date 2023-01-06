@@ -18,6 +18,10 @@ router.get("/", async (req: any, res, next) => {
   )
     .populate([
       {
+        path: "replies",
+        select: "_id",
+      },
+      {
         path: "postedBy",
         select: "_id name profilePic firstName lastName username",
       },

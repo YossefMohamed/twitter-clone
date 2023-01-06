@@ -27,8 +27,14 @@ const postSchema: mongoose.Schema<IPost> = new mongoose.Schema<IPost>(
     retweetData: { type: Schema.Types.ObjectId, ref: "Post" },
     replyTo: { type: Schema.Types.ObjectId, ref: "Post" },
   },
-  { timestamps: true, virtuals: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+postSchema.virtual("replies", {
+  ref: "Post",
+  localField: "_id",
+  foreignField: "replyTo",
+});
 
 const Post = mongoose.model("Post", postSchema);
 export default Post;

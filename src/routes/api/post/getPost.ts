@@ -18,15 +18,25 @@ router.get("/:id", async (req: any, res, next) => {
     replyTo: post._id,
   }).populate([
     {
+      path: "replies",
+      select: "_id",
+    },
+    {
       path: "postedBy",
       select: "_id name profilePic firstName lastName username",
     },
     {
       path: "retweetData",
-      populate: {
-        path: "postedBy",
-        select: "_id name profilePic firstName lastName username",
-      },
+      populate: [
+        {
+          path: "replies",
+          select: "_id",
+        },
+        {
+          path: "postedBy",
+          select: "_id name profilePic firstName lastName username",
+        },
+      ],
     },
     {
       path: "replyTo",
@@ -39,15 +49,25 @@ router.get("/:id", async (req: any, res, next) => {
 
   post = await post.populate([
     {
+      path: "replies",
+      select: "_id",
+    },
+    {
       path: "postedBy",
       select: "_id name profilePic firstName lastName username",
     },
     {
       path: "retweetData",
-      populate: {
-        path: "postedBy",
-        select: "_id name profilePic firstName lastName username",
-      },
+      populate: [
+        {
+          path: "postedBy",
+          select: "_id name profilePic firstName lastName username",
+        },
+        {
+          path: "replies",
+          select: "_id",
+        },
+      ],
     },
     {
       path: "replyTo",

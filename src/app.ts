@@ -19,6 +19,7 @@ import { ApiRouter } from "./routes/api";
 import postRoutes from "./routes/postRoutes";
 import { profileRoutes } from "./routes/profileRoutes";
 import { logoutRoutes } from "./routes/logoutRoutes";
+import { HomeRoutes } from "./routes/homeRoutes";
 declare module "express" {
   export interface Request {
     session: {
@@ -58,15 +59,7 @@ app.use("/api", ApiRouter);
 app.use("/profile", requireLogin, profileRoutes);
 app.use("/logout", requireLogin, logoutRoutes);
 
-app.get("/", requireLogin, (req: any, res, next) => {
-  var payload = {
-    pageTitle: "Home",
-    userLoggedIn: req.session.user,
-    userLoggedInJs: JSON.stringify(req.session.user),
-  };
-
-  res.status(200).render("home", payload);
-});
+app.get("/", requireLogin, HomeRoutes);
 app.use("/posts/:id", requireLogin, postRoutes);
 
 export { app };
