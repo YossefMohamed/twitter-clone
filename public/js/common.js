@@ -66,7 +66,7 @@ const createPost = (postData, largFont = false) => {
   let timestamp = postData.createdAt;
   timestamp = moment(timestamp).from();
   timestamp = timestamp[0].toUpperCase() + timestamp.substring(1);
-
+  console.log(postedBy.profilePic);
   let replyFlag = "";
   if (postData.replyTo && postData.replyTo._id) {
     if (!postData.replyTo._id) {
@@ -107,7 +107,7 @@ const createPost = (postData, largFont = false) => {
                   : ""
               }
                   <div class='userImageContainer'>
-                      <img src='${postedBy.profilePic}'>
+                      <img src='/images/${postedBy.profilePic}'>
                   </div>
                   <div class='postContentContainer'>
                       <div class='header'>

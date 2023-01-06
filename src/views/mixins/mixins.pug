@@ -1,7 +1,7 @@
 mixin createPostForm(userLoggedIn)
     .postFormContainer
-        .userImageContainer
-            img(src=userLoggedIn.profilePic, alt="User's profile picture")
+        .userImageContainer 
+            img(src="images/" + userLoggedIn.profilePic, alt="User's profile picture")
         .textareaContainer
             textarea#postTextarea(placeholder="What's happening?")
             .buttonsContainer
@@ -20,7 +20,7 @@ mixin createReplyModel(userLoggedIn)
                     .postContainerModel
                     .postFormContainer
                         .userImageContainer
-                            img(src=userLoggedIn.profilePic, alt="User's profile picture")
+                            img(src="images/" + userLoggedIn.profilePic, alt="User's profile picture")
                         .textareaContainer
                             textarea#replyTextarea(placeholder="Tweet your reply")
                 .modal-footer

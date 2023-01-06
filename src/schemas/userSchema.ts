@@ -21,7 +21,7 @@ const userSchema: mongoose.Schema<IUser> = new mongoose.Schema<IUser>(
     username: { type: String, required: true, trim: true, unique: true },
     email: { type: String, required: true, trim: true, unique: true },
     password: { type: String, required: true },
-    profilePic: { type: String, default: "/images/profilePic.png" },
+    profilePic: { type: String, default: "profilePic.png" },
     following: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
   },
   {

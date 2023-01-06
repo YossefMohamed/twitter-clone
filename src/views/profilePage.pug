@@ -11,9 +11,9 @@ block content
 
         .profileHeaderContainer
             .coverPhotoContainer
-
+                
                 .userImageContainer
-                    img(src=profileUser.profilePic, alt="User profile image")
+                    img(src="/images/" + profileUser.profilePic, alt="User profile image")
 
                     if profileUser._id.equals(userLoggedIn._id)
                         button.profilePictureButton(data-toggle="modal", data-target="#imageUploadModal")
