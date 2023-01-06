@@ -372,3 +372,34 @@ div .modal-body {
   color: var(--blue);
   background-color: var(--blueBackground);
 }
+
+.noResults {
+  padding: var(--spacing);
+}
+
+.resultsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.resultsContainer .user {
+  padding: var(--spacing);
+  display: flex;
+  border-bottom: 1px solid var(--lightGrey);
+}
+
+.user .userDetailsContainer {
+  flex: 1;
+  padding: 0 var(--spacing);
+}
+
+.profilePictureButton {
+  position: absolute;
+  font-size: 50px;
+  color: rgba(0, 0, 0, 0.6);
+  display: none;
+}
+
+.userImageContainer:hover .profilePictureButton {
+  display: block;
+}

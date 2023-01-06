@@ -241,28 +241,30 @@ const replyTextBox = document.querySelector("#replyTextarea");
 const replySubmitButton = document.querySelector("#submitReplyButton");
 
 // replyHandler
-replyTextBox.addEventListener("keyup", (event) => {
-  const textboxValue = replyTextBox.value.trim();
-  if (textboxValue.length) {
-    replySubmitButton.disabled = false;
+replyTextBox &&
+  replyTextBox.addEventListener("keyup", (event) => {
+    const textboxValue = replyTextBox.value.trim();
+    if (textboxValue.length) {
+      replySubmitButton.disabled = false;
 
-    return;
-  }
-  replySubmitButton.disabled = true;
-});
+      return;
+    }
+    replySubmitButton.disabled = true;
+  });
 
 // send reply to the server
-replySubmitButton.addEventListener("click", () => {
-  const textboxValue = replyTextBox.value.trim();
+replySubmitButton &&
+  replySubmitButton.addEventListener("click", () => {
+    const textboxValue = replyTextBox.value.trim();
 
-  axios
-    .post("/api/posts/" + postId + "/reply", {
-      content: textboxValue,
-    })
-    .then((res) => {
-      location.reload();
-    });
-});
+    axios
+      .post("/api/posts/" + postId + "/reply", {
+        content: textboxValue,
+      })
+      .then((res) => {
+        location.reload();
+      });
+  });
 
 // reply post
 let postId;

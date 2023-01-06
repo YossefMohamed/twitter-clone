@@ -51,9 +51,18 @@ userSchema.virtual("followers", {
 
 userSchema.pre(/^find/, function (this, next) {
   this.populate([
-    { path: "likes", select: "_id -likes" },
-    { path: "retweets", select: "_id -retweetUsers" },
-    { path: "followers", select: "_id -likes" },
+    { path: "likes", select: "_id " },
+    { path: "retweets", select: "_id " },
+    {
+      path: "followers",
+      select: {
+        _id: 1,
+        username: 1,
+        firstName: 1,
+        lastName: 1,
+        profilePic: 1,
+      },
+    },
   ]);
   next();
 });
