@@ -55,12 +55,30 @@ $(document).ready(() => {
     container.innerHTML = "";
 
     results.forEach((result) => {
-      console.log(result);
       const html = createUserHtml(result, true);
       container.innerHTML = container.innerHTML + html;
     });
+    const followButton = document.querySelector(".followButton");
+    followButton &&
+      followButton.addEventListener("click", () => {
+        const userId = followButton.getAttribute("data-user");
+        console.log(userId);
+        axios.post("/api/users/" + userId + "/follow").then(({ data }) => {
+          if (
+            data.data.following.map((userId) => {
+              return `${profileUserId}` === `${userId}`;
+            }).length
+          ) {
+            followButton.classList.add("following");
+            followButton.innerHTML = "Unfollow";
+          } else {
+            followButton.classList.remove("following");
+            followButton.innerHTML = "Follow";
+          }
+        });
+      });
     if (results.length == 0) {
-      container.innerHTML = "<span class='noResults'>No results found</span>";
+      container.innerHTML = "<h1 class='noResults'>No results found</h1>";
     }
   }
 
@@ -80,7 +98,7 @@ $(document).ready(() => {
                         </div>`;
     }
 
-    return `<div class='user'>
+    return `<div class='user' >
                 <div class='userImageContainer'>
                     <img src='${userData.profilePic}'>
                 </div>
