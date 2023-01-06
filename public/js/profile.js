@@ -139,6 +139,38 @@ $(document).ready(() => {
       reader.readAsDataURL(input.files[0]);
     }
   });
+
+  document
+    .querySelector("#imageUploadButton")
+    .addEventListener("click", (event) => {
+      const canvas = cropper.getCroppedCanvas();
+
+      if (!canvas) {
+        alert("Make Sure You Have Uploaded An Image");
+      }
+
+      canvas.toBlob((blob) => {
+        const formData = new FormData();
+        formData.append("filePhoto", blob);
+        for (var pair of formData.entries()) {
+          console.log(pair[0] + ", " + pair[1]);
+        }
+        axios({
+          method: "post",
+          url: "/api/users/upload",
+          data: formData,
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+          .then(function (response) {
+            //handle success
+            console.log(response);
+          })
+          .catch(function (response) {
+            //handle error
+            console.log(response);
+          });
+      });
+    });
 });
 
 function loadPosts(isReply = false) {

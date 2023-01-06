@@ -7,6 +7,7 @@ import { likePostRouter } from "./post/likePost";
 import { replyToPostRouter } from "./post/replyToPost";
 import { retweetPostRouter } from "./post/retweetPost";
 import { followUserRouter } from "./user/followUser";
+import { uploadImageRouter } from "./user/imageUpload";
 
 const router = Router();
 router.use("/posts", createPostsRouter);
@@ -18,5 +19,6 @@ router.use("/posts", replyToPostRouter);
 router.use("/posts", deletePostRouter);
 
 router.use("/users", followUserRouter);
+router.use("/users", uploadImageRouter);
 
 export { router as ApiRouter };
