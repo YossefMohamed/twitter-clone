@@ -55,6 +55,7 @@ submitButton?.addEventListener("click", () => {
 
 const createPost = (postData, largFont = false) => {
   const isRetweet = !!postData.retweetData;
+  const isRetweetData = isRetweet ? postData : false;
   const replies = postData.replies ? postData.replies.length || "" : "";
   const retweetedBy = isRetweet ? postData.postedBy : null;
 
@@ -67,7 +68,7 @@ const createPost = (postData, largFont = false) => {
   let timestamp = postData.createdAt;
   timestamp = moment(timestamp).from();
   timestamp = timestamp[0].toUpperCase() + timestamp.substring(1);
-
+  console.log(isRetweet ? isRetweetData : false);
   let replyFlag = "";
   if (postData.replyTo && postData.replyTo._id) {
     if (!postData.replyTo._id) {
@@ -106,12 +107,16 @@ const createPost = (postData, largFont = false) => {
 
                   <div class="closeButton">
 
-
-                  <button class="confirmPinElement" data-toggle="modal" data-target="#confirmPinModal" data-id=${postData._id}>
-                  <i class="fas fa-thumbtack"></i>
-                </button>
-                
-                
+${
+  postData.pinned
+    ? `<button class="confirmPinElement active" data-toggle="modal" data-target="#confirmUnPinModal" data-id=${postData._id}>
+  <i class="fas fa-thumbtack"></i>
+</button>
+`
+    : `<button class="confirmPinElement" data-toggle="modal" data-target="#confirmPinModal" data-id=${postData._id}>
+<i class="fas fa-thumbtack"></i>
+</button>`
+}
                   
                   
                   <button  data-toggle="modal" data-target="#deleteModel">
@@ -351,7 +356,40 @@ document.addEventListener("click", (event) => {
   for (let i = 0; i < buttonElements.length; i++) {
     if (buttonElements[i].contains(event.target)) {
       postId = getPostIdFromElement(buttonElements[i]);
-      alert(postId);
+      document
+        .querySelector("#confirmPinButton")
+        .addEventListener("click", () => {
+          axios
+            .patch(`/api/posts/${postId}/pin`)
+            .then(({ data }) => {
+              window.location.reload();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+    }
+  }
+});
+
+document.addEventListener("click", (event) => {
+  const buttonElements = document.querySelectorAll(".confirmPinElement");
+
+  for (let i = 0; i < buttonElements.length; i++) {
+    if (buttonElements[i].contains(event.target)) {
+      postId = getPostIdFromElement(buttonElements[i]);
+      document
+        .querySelector("#confirmUnPinButton")
+        .addEventListener("click", () => {
+          axios
+            .patch(`/api/posts/${postId}/pin`)
+            .then(({ data }) => {
+              window.location.reload();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
     }
   }
 });

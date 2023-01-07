@@ -92,12 +92,30 @@ mixin pinPostModal(postId)
                     button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span(aria-hidden='true') &times;
                 .modal-body
-                    p This will appear at the top of your profile and replace any previously pinned Tweet
-                    .imagePreviewContainer
-                        img#coverPreview
+                    p This will tweet appear at the top of your profile and replace any previously pinned Tweet
+
                 .modal-footer
                     button.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
                     button#confirmPinButton.btn.btn-primary(type='button') Save
+
+
+
+mixin unpinPostModal(postId)
+    #confirmUnPinModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='confirmUbPinModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#coverPhotoModalLabel.modal-title Unpin this tweet?
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') &times;
+                .modal-body
+                    p This will tweet be unpinned 
+
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
+                    button#confirmUnPinButton.btn.btn-primary(type='button') Save
+
+
 
 
                     
@@ -119,3 +137,5 @@ mixin createPostModals(userLoggedIn)
     +createReplyModel(userLoggedIn)
     +deletePostModel()
     +pinPostModal()
+    +unpinPostModal()
+    

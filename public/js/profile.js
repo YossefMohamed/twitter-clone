@@ -239,10 +239,17 @@ function loadPosts(isReply = false) {
       })
       .then((res) => {
         res.data.data.map((post) => {
-          console.log(post);
-          document.querySelector(".postsContainer").innerHTML =
-            createPost(post) +
-            document.querySelector(".postsContainer").innerHTML;
+          console.log(
+            post.retweetData && post.retweetData.postedBy._id === currentUser
+              ? post.retweetData.pinned
+              : false
+          );
+          !post.pinned
+            ? (document.querySelector(".postsContainer").innerHTML =
+                createPost(post) +
+                document.querySelector(".postsContainer").innerHTML)
+            : (document.querySelector(".postPinnedContainer").innerHTML =
+                createPost(post));
         });
         deleteSpinner();
       });
