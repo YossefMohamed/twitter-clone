@@ -468,3 +468,6 @@ button.coverPictureButton:hover {
 .confirmPinElement.active {
   color: var(--blue);
 }
+.postPinnedContainer .post {
+  border-bottom: 5px solid var(--lightGrey);
+}
