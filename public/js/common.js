@@ -107,7 +107,7 @@ const createPost = (postData, largFont = false) => {
                   <div class="closeButton">
 
 
-                  <button  data-toggle="modal" data-target="#confirmPinModal">
+                  <button class="confirmPinElement" data-toggle="modal" data-target="#confirmPinModal" data-id=${postData._id}>
                   <i class="fas fa-thumbtack"></i>
                 </button>
                 
@@ -342,5 +342,16 @@ $(document).on("click", ".post", (event) => {
   const element = $(event.target);
   if (postId && !element.is("i")) {
     window.location.href = `/posts/${postId}`;
+  }
+});
+
+document.addEventListener("click", (event) => {
+  const buttonElements = document.querySelectorAll(".confirmPinElement");
+
+  for (let i = 0; i < buttonElements.length; i++) {
+    if (buttonElements[i].contains(event.target)) {
+      postId = getPostIdFromElement(buttonElements[i]);
+      alert(postId);
+    }
   }
 });

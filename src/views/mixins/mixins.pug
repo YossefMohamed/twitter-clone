@@ -83,17 +83,16 @@ mixin createCoverPhotoUploadModal()
                     button.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
                     button#coverPhotoButton.btn.btn-primary(type='button') Save
 
-mixin pinPostModal()
+mixin pinPostModal(postId)
     #confirmPinModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='confirmPinModalLabel', aria-hidden='true')
         .modal-dialog(role='document')
             .modal-content
                 .modal-header
-                    h5#coverPhotoModalLabel.modal-title Upload a new cover photo
+                    h5#coverPhotoModalLabel.modal-title Pin this tweet?
                     button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span(aria-hidden='true') &times;
                 .modal-body
-                    input#coverPhoto(type="file", name="filePhoto")
-
+                    p This will appear at the top of your profile and replace any previously pinned Tweet
                     .imagePreviewContainer
                         img#coverPreview
                 .modal-footer
