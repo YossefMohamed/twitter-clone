@@ -5,8 +5,17 @@ $(document).ready(() => {
     const url = selectedTab === "users" ? "/api/users" : "/api/posts";
     if (!searchBoxValue) return;
     axios.get(url + "?search=" + searchBoxValue).then(({ data }) => {
-      console.log(document.querySelector(".resultsContainer"));
-      outputUsers(data.data, document.querySelector(".resultsContainer"));
+      if (selectedTab === "users") {
+        return outputUsers(
+          data.data,
+          document.querySelector(".resultsContainer")
+        );
+      }
+      data.data.map((post) => {
+        document.querySelector(".resultsContainer").innerHTML =
+          createPost(post) +
+          document.querySelector(".resultsContainer").innerHTML;
+      });
     });
   });
 });
