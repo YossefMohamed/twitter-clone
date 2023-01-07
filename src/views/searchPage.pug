@@ -1,9 +1,9 @@
 extends layouts/main-layout.pug
 
 block content    
-
-    .searchBarContainer
-        i.fas.fa-search
+    script.
+        const selectedTab = '!{selectedTab}';
+    form.searchBarContainer
         input#searchBox(type="text", name="searchBox", data-search=selectedTab, placeholder="Search for users or posts")
 
     .tabsContainer
@@ -15,4 +15,4 @@ block content
     +createPostModals(userLoggedIn)
 
 block scripts
-    script(src="/js/search.js")
+    script(src="/js/searchPage.js")

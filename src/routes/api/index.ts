@@ -8,6 +8,7 @@ import { pinPostRouter } from "./post/pinPost";
 import { replyToPostRouter } from "./post/replyToPost";
 import { retweetPostRouter } from "./post/retweetPost";
 import { followUserRouter } from "./user/followUser";
+import { getUsersRouter } from "./user/getUsers";
 import { uploadImageRouter } from "./user/imageUpload";
 
 const router = Router();
@@ -22,5 +23,6 @@ router.use("/posts", pinPostRouter);
 
 router.use("/users", followUserRouter);
 router.use("/users", uploadImageRouter);
+router.use("/users", getUsersRouter);
 
 export { router as ApiRouter };

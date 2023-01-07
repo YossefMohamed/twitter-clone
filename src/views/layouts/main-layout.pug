@@ -17,6 +17,8 @@ html(lang="en")
     body
         script.
             const currentUser = "#{userLoggedIn._id}"
+            let currentUserObj = '!{JSON.stringify(userLoggedIn)}'
+
         .wrapper
             .d-flex
                 nav.col-2

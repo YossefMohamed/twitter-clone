@@ -471,3 +471,26 @@ button.coverPictureButton:hover {
 .postPinnedContainer .post {
   border-bottom: 5px solid var(--lightGrey);
 }
+
+.searchBarContainer {
+  position: relative;
+  color: var(--greyText);
+  padding: 10px var(--spacing);
+}
+
+.searchBarContainer button {
+  position: absolute;
+  top: 0px;
+  left: 24px;
+  transform: translateY(61%);
+}
+
+.searchBarContainer #searchBox {
+  height: 36px;
+  width: 100%;
+  padding: 5px 15px 5px 15px;
+  border-radius: 50px;
+  background-color: var(--lightGrey);
+  border: none;
+  color: var(--greyText);
+}

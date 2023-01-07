@@ -8,7 +8,6 @@ block content
             const profileUserId = '!{profileUser._id}';
             let profileUser = '!{JSON.stringify(profileUser)}'
             const selectedTab = '!{selectedTab}';
-            let currentUserObj = '!{JSON.stringify(userLoggedIn)}'
 
         .tabsContainer
             +createTab("Following", `/profile/${profileUser.username}/following`, selectedTab !== "followers")

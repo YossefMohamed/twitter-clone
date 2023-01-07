@@ -88,7 +88,6 @@ $(document).ready(() => {
   function createUserHtml(userData, showFollowButton) {
     const userLoggedIn = JSON.parse(currentUserObj);
     const name = userData.firstName + " " + userData.lastName;
-    console.log(userLoggedIn);
     const isFollowing =
       userLoggedIn.following && userLoggedIn.following.includes(userData._id);
     const text = isFollowing ? "Following" : "Follow";
@@ -103,7 +102,7 @@ $(document).ready(() => {
 
     return `<div class='user' >
                 <div class='userImageContainer'>
-                    <img src='${userData.profilePic}'>
+                    <img src='/images/${userData.profilePic}'>
                 </div>
                 <div class='userDetailsContainer'>
                 <div class='header'>

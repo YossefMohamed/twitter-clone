@@ -20,6 +20,7 @@ import postRoutes from "./routes/postRoutes";
 import { profileRoutes } from "./routes/profileRoutes";
 import { logoutRoutes } from "./routes/logoutRoutes";
 import { HomeRoutes } from "./routes/homeRoutes";
+import { searchRoutes } from "./routes/searchRoutes";
 declare module "express" {
   export interface Request {
     session: {
@@ -57,6 +58,7 @@ app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/api", ApiRouter);
 app.use("/profile", requireLogin, profileRoutes);
+app.use("/search", requireLogin, searchRoutes);
 app.use("/logout", requireLogin, logoutRoutes);
 
 app.get("/", requireLogin, HomeRoutes);
