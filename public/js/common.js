@@ -119,7 +119,7 @@ ${
 }
                   
                   
-                  <button  data-toggle="modal" data-target="#deleteModel">
+                  <button class="confirmDeleteElement" data-toggle="modal" data-target="#deleteModel">
                   <i class="fa fa-close"></i>
                 </button>
                 
@@ -318,10 +318,11 @@ document.addEventListener("click", (event) => {
 
 //delete post
 document.addEventListener("click", (event) => {
-  const buttonElements = document.querySelectorAll(".closeButton");
+  const buttonElements = document.querySelectorAll(".confirmDeleteElement");
 
   for (let i = 0; i < buttonElements.length; i++) {
     if (buttonElements[i].contains(event.target)) {
+      console.log(postId);
       postId = getPostIdFromElement(buttonElements[i]);
       const submitDelete = document.querySelector("#submitDeleteButton");
       submitDelete.addEventListener("click", () => {
