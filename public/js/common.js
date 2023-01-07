@@ -102,9 +102,28 @@ const createPost = (postData, largFont = false) => {
               <div class='mainContentContainer'>
               ${
                 currentUser === postedBy._id
-                  ? `<button class="closeButton"  data-toggle="modal" data-target="#deleteModel">
-                    <i class="fa fa-close"></i>
-                  </button>`
+                  ? `
+
+                  <div class="closeButton">
+
+
+                  <button  data-toggle="modal" data-target="#confirmPinModal">
+                  <i class="fas fa-thumbtack"></i>
+                </button>
+                
+                
+                  
+                  
+                  <button  data-toggle="modal" data-target="#deleteModel">
+                  <i class="fa fa-close"></i>
+                </button>
+                
+                
+
+                
+                  </div>
+                  
+                  `
                   : ""
               }
                   <div class='userImageContainer'>
