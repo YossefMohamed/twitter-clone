@@ -35,9 +35,9 @@ function outputUsers(results, container) {
 const userSelected = (user) => {
   selectedUsers.push(user);
 
-  document.querySelector(".selectedUsers").innerHTML =
-    `<span> ${user.username} </span>` +
-    document.querySelector(".selectedUsers").innerHTML;
+  document.querySelector(".selectedUsersContainer").innerHTML =
+    `<span class="selectedUser"> ${user.username} </span> ` +
+    document.querySelector(".selectedUsersContainer").innerHTML;
 };
 
 function createUserHtml(userData, showFollowButton = true) {
