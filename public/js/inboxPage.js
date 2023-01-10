@@ -10,36 +10,40 @@ document
       return outputUsers(data.data, $(".resultsContainer"));
     });
   });
-const chatList = [];
+const selectedUsers = [];
 function outputUsers(results, container) {
-  if (!container) return;
   container.html("");
 
   results.forEach((result) => {
-    if (result._id === currentUser) return;
+    const ifCurrent = selectedUsers.some((user) => user._id === result._id);
+    console.log(ifCurrent);
+    if (result._id === currentUser || ifCurrent) return;
     const html = createUserHtml(result, true);
     const element = $(html);
-    console.log(element[0]);
-    element.click(() => console.log("hi"));
-    element.click(() => console.log("hi"));
     container.append(html);
+    $(`#${result._id}`).click(() => {
+      userSelected(result);
+      container.html("");
+      this.value = "";
+    });
   });
 
   if (results.length == 0) {
     container.html("<h1 class='noResults'>No results found</h1>");
   }
 }
+const userSelected = (user) => {
+  selectedUsers.push(user);
+
+  document.querySelector(".selectedUsers").innerHTML =
+    `<span> ${user.username} </span>` +
+    document.querySelector(".selectedUsers").innerHTML;
+};
 
 function createUserHtml(userData, showFollowButton = true) {
-  const userLoggedIn = JSON.parse(currentUserObj);
   const name = userData.firstName + " " + userData.lastName;
-  const isFollowing =
-    userLoggedIn.following && userLoggedIn.following.includes(userData._id);
-  const text = isFollowing ? "Following" : "Follow";
-  const buttonClass = isFollowing ? "followButton following" : "followButton";
 
-  let followButton = "";
-  return `<div class='user' >
+  return `<div class='user' id="${userData._id}">
                 <div class='userImageContainer'>
                     <img src='/images/${userData.profilePic}'>
                 </div>
