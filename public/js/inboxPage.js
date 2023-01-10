@@ -16,7 +16,6 @@ function outputUsers(results, container) {
 
   results.forEach((result) => {
     const ifCurrent = selectedUsers.some((user) => user._id === result._id);
-    console.log(ifCurrent);
     if (result._id === currentUser || ifCurrent) return;
     const html = createUserHtml(result, true);
     const element = $(html);
@@ -24,7 +23,7 @@ function outputUsers(results, container) {
     $(`#${result._id}`).click(() => {
       userSelected(result);
       container.html("");
-      this.value = "";
+      $("#userSearchTextbox").val("");
     });
   });
 
