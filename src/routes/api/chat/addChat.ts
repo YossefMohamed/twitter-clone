@@ -6,27 +6,27 @@ const router = Router();
 router.post("/", async (req: any, res, next) => {
   if (!req.body.users) {
     console.log("Users param not sent with request");
-    return res.sendStatus(400);
+    return res.status(400);
   }
 
-  var users = JSON.parse(req.body.users);
+  const users = req.body.users;
 
   if (users.length == 0) {
     console.log("Users array is empty");
-    return res.sendStatus(400);
+    return res.status(400);
   }
 
   users.push(req.session.user);
 
-  var chatData = {
+  const chatData = {
     users: users,
-    isGroupChat: true,
+    isGroupChat: users.length > 1 ? true : false,
   };
 
-  Chat.create(chatData)
-    .then((results) => res.status(200).send(results))
-    .catch((error) => {
-      console.log(error);
-      res.sendStatus(400);
-    });
+  const chat = await Chat.create(chatData);
+
+  res.status(200).json({
+    status: "ok",
+    chat,
+  });
 });

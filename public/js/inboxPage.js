@@ -10,7 +10,7 @@ document
       return outputUsers(data.data, $(".resultsContainer"));
     });
   });
-const selectedUsers = [];
+let selectedUsers = [];
 function outputUsers(results, container) {
   container.html("");
 
@@ -24,8 +24,11 @@ function outputUsers(results, container) {
       userSelected(result);
       container.html("");
       $("#userSearchTextbox").val("");
-      if (userSelected.length) {
+      console.log(selectedUsers.length);
+      if (selectedUsers.length) {
         document.querySelector("#createChatButton").disabled = false;
+      } else {
+        document.querySelector("#createChatButton").disabled = true;
       }
     });
   });
@@ -63,10 +66,22 @@ function createUserHtml(userData, showFollowButton = true) {
 }
 
 document.addEventListener("click", () => {
-  if (document.querySelector(".selectedUser"))
+  if (document.querySelector(".selectedUser")) {
     document
       .querySelector(".selectedUser")
       .addEventListener("click", function () {
+        console.log(this.innerHTML);
         this.remove();
+        selectedUsers = selectedUsers.filter((user) => {
+          user.username !== this.innerHTML;
+        });
+        if (selectedUsers.length) {
+          document.querySelector("#createChatButton").disabled = false;
+        } else {
+          document.querySelector("#createChatButton").disabled = true;
+        }
       });
+  }
 });
+
+document.querySelector("#createChatButton").addEventListener("click", () => {});
