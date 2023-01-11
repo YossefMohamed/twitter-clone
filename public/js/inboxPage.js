@@ -58,3 +58,12 @@ function createUserHtml(userData, showFollowButton = true) {
                 </div>
             </div>`;
 }
+
+document.addEventListener("click", () => {
+  if (document.querySelector(".selectedUser"))
+    document
+      .querySelector(".selectedUser")
+      .addEventListener("click", function () {
+        this.remove();
+      });
+});
