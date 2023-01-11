@@ -90,7 +90,6 @@ document.querySelector("#createChatButton").addEventListener("click", () => {
       users: selectedUsers.map((user) => user._id),
     })
     .then(({ data }) => {
-      const chatData = data.data;
-      window.location.href = `/messages/${chatData._id}`;
+      window.location.href = `/messages/${data.data._id}`;
     });
 });

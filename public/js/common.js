@@ -395,8 +395,8 @@ document.addEventListener("click", (event) => {
   }
 });
 
-function getChatName(chatData) {
-  const chatName = chatData.chatName;
+const getChatName = (chatData) => {
+  let chatName = chatData.chatName;
 
   if (!chatName) {
     const otherChatUsers = getOtherChatUsers(chatData.users);
@@ -407,10 +407,10 @@ function getChatName(chatData) {
   }
 
   return chatName;
-}
+};
 
-function getOtherChatUsers(users) {
+const getOtherChatUsers = (users) => {
   if (users.length == 1) return users;
 
-  return users.filter((user) => user._id != userLoggedIn._id);
-}
+  return users.filter((user) => user._id !== currentUser);
+};

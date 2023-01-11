@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Chat from "../../../schemas/chatSchema";
+import Chat, { IChat } from "../../../schemas/chatSchema";
 
 const router = Router();
 
@@ -22,7 +22,16 @@ router.post("/", async (req: any, res, next) => {
     users: users,
     isGroupChat: users.length > 2 ? true : false,
   };
-  const chat = await Chat.create(chatData);
+  let chat: IChat | null = null;
+  if (users.length === 2) {
+    chat = await Chat.findOne({
+      users: users,
+    });
+  }
+
+  if (!chat) {
+    chat = await Chat.create(chatData);
+  }
 
   res.status(200).json({
     status: "ok",
