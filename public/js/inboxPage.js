@@ -84,4 +84,12 @@ document.addEventListener("click", () => {
   }
 });
 
-document.querySelector("#createChatButton").addEventListener("click", () => {});
+document.querySelector("#createChatButton").addEventListener("click", () => {
+  axios
+    .post("/api/chat/", {
+      users: selectedUsers.map((user) => user._id),
+    })
+    .then(({ data }) => {
+      console.log(data.data);
+    });
+});

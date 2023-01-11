@@ -20,13 +20,14 @@ router.post("/", async (req: any, res, next) => {
 
   const chatData = {
     users: users,
-    isGroupChat: users.length > 1 ? true : false,
+    isGroupChat: users.length > 2 ? true : false,
   };
-
   const chat = await Chat.create(chatData);
 
   res.status(200).json({
     status: "ok",
-    chat,
+    data: chat,
   });
 });
+
+export { router as addChatRouter };

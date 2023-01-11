@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { addChatRouter } from "./chat/addChat";
+import { getChatsRouter } from "./chat/getChats";
 import { createPostsRouter } from "./post/addPost";
 import { deletePostRouter } from "./post/deletePost";
 import { getPostRouter } from "./post/getPost";
@@ -24,5 +26,8 @@ router.use("/posts", pinPostRouter);
 router.use("/users", followUserRouter);
 router.use("/users", uploadImageRouter);
 router.use("/users", getUsersRouter);
+
+router.use("/chat", addChatRouter);
+router.use("/chat", getChatsRouter);
 
 export { router as ApiRouter };
