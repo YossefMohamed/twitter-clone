@@ -24,6 +24,9 @@ function outputUsers(results, container) {
       userSelected(result);
       container.html("");
       $("#userSearchTextbox").val("");
+      if (userSelected.length) {
+        document.querySelector("#createChatButton").disabled = false;
+      }
     });
   });
 
