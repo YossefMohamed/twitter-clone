@@ -1,0 +1,24 @@
+extends layouts/main-layout.pug
+
+block content   
+    
+    if errorMessage
+        span.errorMessage #{errorMessage}
+    else 
+        script.
+            const chatId = '!{chat._id}';
+
+        .chatPageContainer
+            .chatTitleBarContainer
+                input(type="text" , placeholder = "Enter the name of the chat..")#chatName 
+            
+            .mainContentContainer
+                .chatContainer
+                    .chatMessages
+                    .footer
+                        textarea(name="messageInput", placeholder="Type a message...")
+                        button.sendMessageButton
+                            i.fas.fa-paper-plane
+
+block scripts
+    script(src="/js/chatPage.js")

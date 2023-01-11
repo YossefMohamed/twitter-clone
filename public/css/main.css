@@ -497,6 +497,7 @@ button.coverPictureButton:hover {
 
 .chatPageContainer {
   display: flex;
+  flex: 1;
   flex-direction: column;
   min-height: 0;
 }
@@ -609,4 +610,64 @@ button.coverPictureButton:hover {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.chatTitleBarContainer {
+  border-bottom: 1px solid var(--lightGrey);
+  display: flex;
+  align-items: center;
+  padding: var(--spacing);
+}
+
+#chatName {
+  width: 100%;
+  border: 1px solid transparent;
+  padding: 10px 5px;
+  border-radius: 10px;
+}
+
+#chatName:hover {
+  border: 1px solid var(--lightGrey);
+  cursor: text;
+}
+
+.chatContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+
+.chatContainer .footer {
+  display: flex;
+  padding: var(--spacing);
+  flex-shrink: 0px;
+}
+
+.chatContainer .footer textarea {
+  flex: 1;
+  resize: none;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 18px;
+  border: none;
+  padding: 8px 12px;
+  height: 40px;
+}
+
+.chatContainer .footer button {
+  background-color: transparent;
+  color: var(--blue);
+  font-size: 24px;
+}
+
+.chatContainer .footer button :hover {
+  color: var(--blueLight);
+}
+
+.chatMessages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: var(--spacing);
 }
