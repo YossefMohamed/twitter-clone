@@ -18,11 +18,10 @@ const createChatHtml = (chatData) => {
   console.log(chatData);
   const chatName = getChatName(chatData);
   const image = getChatImageElements(chatData);
-  console.log(image);
   const latestMessage = "This is the latest message";
 
   return `<a href='/messages/${chatData._id}' class='resultListItem'>
-  <div class='resultsImageContainer '><img src='63b88af8b3550845133f6dd31673038646972.png' alt='User's profile pic'></div>
+  ${image}
                 <div class='resultsDetailsContainer ellipsis'>
                     <span class='heading ellipsis'>${chatName}</span>
                     <span class='subText ellipsis'>${latestMessage}</span>
@@ -69,5 +68,5 @@ const getUserChatImageElement = (user) => {
     return alert("User passed into function is invalid");
   }
 
-  return `<img src='${user.profilePic}' alt='User's profile pic'>`;
+  return `<img src='/images/${user.profilePic}' alt='User's profile pic'>`;
 };
