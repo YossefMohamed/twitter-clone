@@ -5,8 +5,11 @@ const router = Router();
 
 router.get("/", async (req: any, res, next) => {
   const chats = await Chat.find({
-    users: { $elemMatch: req.session.user },
-  });
+    users: { $elemMatch: { $eq: req.session.user._id } },
+  })
+    .populate("users")
+    .sort({ updatedAt: -1 });
+
   res.status(200).json({
     status: "ok",
     data: chats,
