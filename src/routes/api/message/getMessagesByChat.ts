@@ -1,10 +1,10 @@
 import { Router } from "express";
-import Chat from "../../../schemas/chatSchema";
+import Message from "../../../schemas/messageSchema";
 
 const router = Router();
 
 router.get("/:id", async (req: any, res, next) => {
-  const messages = await Chat.find({
+  const messages = await Message.find({
     chat: req.params.id,
   }).populate("users");
 

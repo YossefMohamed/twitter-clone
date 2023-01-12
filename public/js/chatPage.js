@@ -4,6 +4,9 @@ const chatNameinput = document.querySelector("#chatName");
 axios.get("/api/chats/" + chatId).then(({ data }) => {
   chat = data.data;
   chatNameinput.value = getChatName(chat);
+  axios.get("/api/messages/" + chatId).then(({ data }) => {
+    console.log(data.data);
+  });
 });
 
 const chatNameHandler = (event) => {
