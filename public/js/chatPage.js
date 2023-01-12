@@ -23,6 +23,17 @@ chatNameinput.addEventListener("change", chatNameHandler);
 
 const messageContent = document.querySelector("#messageContent");
 
-document.querySelector(".sendMessageButton").addEventListener("click", () => {
-  console.log(messageContent.value);
-});
+document
+  .querySelector(".sendMessageButton")
+  .addEventListener("click", (event) => {
+    event.preventDefault();
+    const content = messageContent.value;
+    if (content.length) {
+      axios
+        .post("/api/messages/", {
+          content,
+          chat: chatId,
+        })
+        .then(({ data }) => console.log(data.data));
+    }
+  });

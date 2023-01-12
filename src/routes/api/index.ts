@@ -4,6 +4,7 @@ import { changeChatNameRouter } from "./chat/changeChatName";
 import { getChatRouter } from "./chat/getChat";
 import { getChatsRouter } from "./chat/getChats";
 import { createMessageRouter } from "./message/createMessage";
+import { getMessagesByChat } from "./message/getMessagesByChat";
 import { createPostsRouter } from "./post/addPost";
 import { deletePostRouter } from "./post/deletePost";
 import { getPostRouter } from "./post/getPost";
@@ -36,5 +37,6 @@ router.use("/chats", getChatRouter);
 router.use("/chats", changeChatNameRouter);
 
 router.use("/messages", createMessageRouter);
+router.use("/messages", getMessagesByChat);
 
 export { router as ApiRouter };
