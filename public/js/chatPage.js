@@ -19,5 +19,4 @@ const chatNameHandler = (event) => {
     : chatNameinput.classList.add("inputError");
 };
 
-chatNameinput.addEventListener("keyup", chatNameHandler);
 chatNameinput.addEventListener("change", chatNameHandler);
