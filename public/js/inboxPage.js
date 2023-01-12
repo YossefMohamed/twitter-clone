@@ -1,95 +1,53 @@
-let searchBoxValue = "";
-document
-  .querySelector("#userSearchTextbox")
-  .addEventListener("keyup", (event) => {
-    searchBoxValue = event.target.value.trim();
+document.querySelector(".resultsContainer").innerHTML = getSpinner();
+axios.get("/api/chats/").then(({ data }) => {
+  deleteSpinner();
+  outputChatList(data.data, $(".resultsContainer"));
+});
 
-    const url = "/api/users";
-    if (!searchBoxValue) return ($(".resultsContainer").innerHTML = "");
-    axios.get(url + "?search=" + searchBoxValue).then(({ data }) => {
-      return outputUsers(data.data, $(".resultsContainer"));
-    });
-  });
-let selectedUsers = [];
-function outputUsers(results, container) {
-  container.html("");
-
-  results.forEach((result) => {
-    const ifCurrent = selectedUsers.some((user) => user._id === result._id);
-    if (result._id === currentUser || ifCurrent) return;
-    const html = createUserHtml(result, true);
-    const element = $(html);
+const outputChatList = (chatList, container) => {
+  console.log(chatList);
+  chatList.forEach((chat) => {
+    const html = createChatHtml(chat);
     container.append(html);
-    $(`#${result._id}`).click(() => {
-      userSelected(result);
-      container.html("");
-      $("#userSearchTextbox").val("");
-      console.log(selectedUsers.length);
-      if (selectedUsers.length) {
-        document.querySelector("#createChatButton").disabled = false;
-      } else {
-        document.querySelector("#createChatButton").disabled = true;
-      }
-    });
   });
 
-  if (results.length == 0) {
-    container.html("<h1 class='noResults'>No results found</h1>");
+  if (chatList.length == 0) {
+    container.append("<span class='noResults'>Nothing to show.</span>");
   }
-}
-const userSelected = (user) => {
-  selectedUsers.push(user);
-
-  document.querySelector(".selectedUsersContainer").innerHTML =
-    `<span class="selectedUser"> ${user.username} </span> ` +
-    document.querySelector(".selectedUsersContainer").innerHTML;
 };
 
-function createUserHtml(userData, showFollowButton = true) {
-  const name = userData.firstName + " " + userData.lastName;
+const createChatHtml = (chatData) => {
+  const chatName = getChatName(chatData);
+  const image = getChatImageElements(chatData);
+  const latestMessage = "This is the latest message";
 
-  return `<div class='user' id="${userData._id}">
-                <div class='userImageContainer'>
-                    <img src='/images/${userData.profilePic}'>
-                </div>
-                <div class='userDetailsContainer'>
-                <div class='header'>
-                <a href='/profile/${userData.username}'>${name}</a>
-                <span class='username'>@${userData.username}</span>
-             </div><div class='header'>
-            <a href='/profile/${userData.username}/following'>${userData.following.length} following</a>
-            <a href='/profile/${userData.username}/followers'>${userData.followers.length} followers</a>
-        </div> 
-                
-                </div>
-            </div>`;
-}
+  return `<a href='/messages/${chatData._id}' class='resultListItem'>
+          ${image}
+                        <div class='resultsDetailsContainer ellipsis'>
+                            <span class='heading ellipsis'>${chatName}</span>
+                            <span class='subText ellipsis'>${latestMessage}</span>
+                        </div>
+                    </a>`;
+};
 
-document.addEventListener("click", () => {
-  if (document.querySelector(".selectedUser")) {
-    document
-      .querySelector(".selectedUser")
-      .addEventListener("click", function () {
-        console.log(this.innerHTML);
-        this.remove();
-        selectedUsers = selectedUsers.filter((user) => {
-          user.username !== this.innerHTML;
-        });
-        if (selectedUsers.length) {
-          document.querySelector("#createChatButton").disabled = false;
-        } else {
-          document.querySelector("#createChatButton").disabled = true;
-        }
-      });
+const getChatImageElements = (chatData) => {
+  const otherChatUsers = getOtherChatUsers(chatData.users);
+
+  let groupChatClass = "";
+  let chatImage = getUserChatImageElement(otherChatUsers[0]);
+
+  if (otherChatUsers.length > 1) {
+    groupChatClass = "groupChatImage";
+    chatImage += getUserChatImageElement(otherChatUsers[1]);
   }
-});
 
-document.querySelector("#createChatButton").addEventListener("click", () => {
-  axios
-    .post("/api/chat/", {
-      users: selectedUsers.map((user) => user._id),
-    })
-    .then(({ data }) => {
-      window.location.href = `/messages/${data.data._id}`;
-    });
-});
+  return `<div class='resultsImageContainer ${groupChatClass}'>${chatImage}</div>`;
+};
+
+const getUserChatImageElement = (user) => {
+  if (!user || !user.profilePic) {
+    return alert("User passed into function is invalid");
+  }
+
+  return `<img src='/images/${user.profilePic}' alt='User's profile pic'>`;
+};

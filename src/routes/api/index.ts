@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { addChatRouter } from "./chat/addChat";
+import { changeChatNameRouter } from "./chat/changeChatName";
 import { getChatRouter } from "./chat/getChat";
 import { getChatsRouter } from "./chat/getChats";
 import { createPostsRouter } from "./post/addPost";
@@ -28,8 +29,9 @@ router.use("/users", followUserRouter);
 router.use("/users", uploadImageRouter);
 router.use("/users", getUsersRouter);
 
-router.use("/chat", addChatRouter);
-router.use("/chat", getChatsRouter);
-router.use("/chat", getChatRouter);
+router.use("/chats", addChatRouter);
+router.use("/chats", getChatsRouter);
+router.use("/chats", getChatRouter);
+router.use("/chats", changeChatNameRouter);
 
 export { router as ApiRouter };

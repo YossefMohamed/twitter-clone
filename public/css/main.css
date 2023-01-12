@@ -671,3 +671,7 @@ button.coverPictureButton:hover {
   overflow-y: auto;
   padding: var(--spacing);
 }
+
+.chatTitleBarContainer .inputError {
+  border-color: var(--danger) !important;
+}
