@@ -7,7 +7,15 @@ router.get("/", async (req: any, res, next) => {
   const chats = await Chat.find({
     users: { $elemMatch: { $eq: req.session.user._id } },
   })
-    .populate("users")
+    .populate([
+      {
+        path: "users",
+      },
+      {
+        path: "latestMessage",
+        select: "content",
+      },
+    ])
     .sort({ updatedAt: -1 });
 
   res.status(200).json({

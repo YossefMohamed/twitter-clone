@@ -5,7 +5,6 @@ axios.get("/api/chats/").then(({ data }) => {
 });
 
 const outputChatList = (chatList, container) => {
-  console.log(chatList);
   chatList.forEach((chat) => {
     const html = createChatHtml(chat);
     container.append(html);
@@ -19,7 +18,9 @@ const outputChatList = (chatList, container) => {
 const createChatHtml = (chatData) => {
   const chatName = getChatName(chatData);
   const image = getChatImageElements(chatData);
-  const latestMessage = "This is the latest message";
+  const latestMessage = chatData.latestMessage
+    ? chatData.latestMessage.content
+    : "This is the latest message";
 
   return `<a href='/messages/${chatData._id}' class='resultListItem'>
           ${image}

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import Chat from "../../../schemas/chatSchema";
 import Message from "../../../schemas/messageSchema";
 
 const router = Router();
@@ -17,7 +18,9 @@ router.post("/", async (req: any, res, next) => {
     content,
     chat,
   });
-
+  await Chat.findByIdAndUpdate(chat, {
+    latestMessage: message,
+  });
   res.status(200).json({
     status: "ok",
     data: message,
