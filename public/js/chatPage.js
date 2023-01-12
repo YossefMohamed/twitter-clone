@@ -53,7 +53,7 @@ document
           content,
           chat: chatId,
         })
-        .then(({ data }) => console.log(data.data));
+        .then(({ data }) => (messageContent.value = ""));
     }
   });
 
@@ -73,11 +73,11 @@ const createMessageHtml = (message, nextMessage, lastSenderId) => {
   }
 
   let profileImage = "";
-  profileImage = `<img src='${sender.profilePic}'>`;
+  profileImage = `<img src='/images/${sender.profilePic}'>`;
 
   let imageContainer = "";
   if (!isMine) {
-    imageContainer = `<div class='imageContainer'>
+    imageContainer = `<div class='imageContainer ellipse'>
                               ${profileImage}
                           </div>`;
   }

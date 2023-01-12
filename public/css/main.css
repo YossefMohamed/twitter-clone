@@ -748,3 +748,13 @@ button.coverPictureButton:hover {
 .chatMessages .message.theirs.last:not(.first) .messageBody {
   border-top-left-radius: 2px;
 }
+.chatMessages img {
+  height: 100%;
+  border-radius: 50%;
+  vertical-align: bottom;
+}
+.chatMessages .imageContainer {
+  height: 24px;
+  width: 24px;
+  margin-right: 7px;
+}
