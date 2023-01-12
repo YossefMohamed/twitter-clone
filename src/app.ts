@@ -37,7 +37,7 @@ new Database();
 
 app.use(
   session({
-    secret: "bbq chips",
+    secret: process.env.sessionSecret || "mysecret",
     resave: true,
     saveUninitialized: false,
   })

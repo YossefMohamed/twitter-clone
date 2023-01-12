@@ -20,3 +20,9 @@ const chatNameHandler = (event) => {
 };
 
 chatNameinput.addEventListener("change", chatNameHandler);
+
+const messageContent = document.querySelector("#messageContent");
+
+document.querySelector(".sendMessageButton").addEventListener("click", () => {
+  console.log(messageContent.value);
+});
