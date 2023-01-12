@@ -6,7 +6,7 @@ const router = Router();
 router.get("/:id", async (req: any, res, next) => {
   const messages = await Message.find({
     chat: req.params.id,
-  }).populate("users");
+  }).populate("sender");
 
   res.status(200).json({
     status: "ok",
