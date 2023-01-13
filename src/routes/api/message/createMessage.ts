@@ -13,11 +13,23 @@ router.post("/", async (req: any, res, next) => {
       message: "data not completed",
     });
   }
-  const message = await Message.create({
+  let message = await Message.create({
     sender: req.session.user._id,
     content,
     chat,
   });
+
+  message = await message.populate([
+    {
+      path: "chat",
+      populate: {
+        path: "users",
+      },
+    },
+    {
+      path: "sender",
+    },
+  ]);
   await Chat.findByIdAndUpdate(chat, {
     latestMessage: message,
   });

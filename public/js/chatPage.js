@@ -83,10 +83,17 @@ document
       socket.emit("stop typing", chatId);
 
       messageContent.value = "";
-      axios.post("/api/messages/", {
-        content,
-        chat: chatId,
-      });
+      axios
+        .post("/api/messages/", {
+          content,
+          chat: chatId,
+        })
+        .then(({ data }) => {
+          socket.emit("new message", data.data);
+          document.querySelector(".chatMessages").innerHTML =
+            document.querySelector(".chatMessages").innerHTML +
+            messageReceived(data.data);
+        });
     }
   });
 
@@ -124,4 +131,15 @@ const createMessageHtml = (message, nextMessage, lastSenderId) => {
                   </span>
               </div>
           </li>`;
+};
+
+socket.on("message received", (newMessage) => {
+  console.log(newMessage);
+  document.querySelector(".chatMessages").innerHTML =
+    document.querySelector(".chatMessages").innerHTML +
+    messageReceived(newMessage);
+});
+
+const messageReceived = (newMessage) => {
+  return createMessageHtml(newMessage);
 };
