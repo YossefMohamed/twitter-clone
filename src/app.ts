@@ -22,6 +22,7 @@ import { HomeRoutes } from "./routes/homeRoutes";
 import { searchRoutes } from "./routes/searchRoutes";
 import { messageRouter } from "./routes/messageRoutes";
 import { IUser } from "./schemas/userSchema";
+import { notificationRouter } from "./routes/notificationRoutes";
 
 declare module "express" {
   export interface Request {
@@ -63,6 +64,7 @@ app.use("/profile", requireLogin, profileRoutes);
 app.use("/search", requireLogin, searchRoutes);
 app.use("/logout", requireLogin, logoutRoutes);
 app.use("/messages", requireLogin, messageRouter);
+app.use("/notifications", requireLogin, notificationRouter);
 
 app.get("/", requireLogin, HomeRoutes);
 app.use("/posts/:id", requireLogin, postRoutes);

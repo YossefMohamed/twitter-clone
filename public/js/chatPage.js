@@ -52,6 +52,7 @@ axios.get("/api/chats/" + chatId).then(({ data }) => {
         document.querySelector(".chatMessages").innerHTML +
         createMessageHtml(message);
     });
+    scrollToBottom(".chatMessages");
   });
 });
 
@@ -93,6 +94,8 @@ document
           document.querySelector(".chatMessages").innerHTML =
             document.querySelector(".chatMessages").innerHTML +
             messageReceived(data.data);
+
+          scrollToBottom(".chatMessages");
         });
     }
   });
@@ -142,4 +145,9 @@ socket.on("message received", (newMessage) => {
 
 const messageReceived = (newMessage) => {
   return createMessageHtml(newMessage);
+};
+
+const scrollToBottom = (id) => {
+  const element = document.querySelector(id);
+  element.scrollTop = element.scrollHeight;
 };
