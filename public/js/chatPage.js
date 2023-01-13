@@ -48,12 +48,11 @@ document
     event.preventDefault();
     const content = messageContent.value;
     if (content.length) {
-      axios
-        .post("/api/messages/", {
-          content,
-          chat: chatId,
-        })
-        .then(({ data }) => (messageContent.value = ""));
+      messageContent.value = "";
+      axios.post("/api/messages/", {
+        content,
+        chat: chatId,
+      });
     }
   });
 

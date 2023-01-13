@@ -8,7 +8,7 @@ router.post("/", async (req: any, res, next) => {
   const { content, chat } = req.body;
 
   if (!(content && chat)) {
-    res.status(400).json({
+    return res.status(400).json({
       status: "failed",
       message: "data not completed",
     });
