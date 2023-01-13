@@ -1,5 +1,8 @@
 $(document).ready(() => {
   let searchBoxValue = "";
+  document.querySelector("form").addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
   document.querySelector("#searchBox").addEventListener("keyup", (event) => {
     searchBoxValue = event.target.value.trim();
     const url = selectedTab === "users" ? "/api/users" : "/api/posts";
