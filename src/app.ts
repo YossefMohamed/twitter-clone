@@ -5,7 +5,6 @@ import path from "path";
 dotenv.config({ path: path.join(__dirname, "./.env") });
 import morgan from "morgan";
 import Database from "./database";
-import { IUser } from "./schemas/userSchema";
 import session from "express-session";
 const app = express();
 
@@ -22,6 +21,8 @@ import { logoutRoutes } from "./routes/logoutRoutes";
 import { HomeRoutes } from "./routes/homeRoutes";
 import { searchRoutes } from "./routes/searchRoutes";
 import { messageRouter } from "./routes/messageRoutes";
+import { IUser } from "./schemas/userSchema";
+
 declare module "express" {
   export interface Request {
     session: {

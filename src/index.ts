@@ -1,6 +1,15 @@
 import { app } from "./app";
 
 const port = process.env.PORT! || 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Express is listening at http://localhost:${port}`);
+});
+
+let io = require("socket.io")(server);
+
+io.on("connection", (socket: any) => {
+  socket.on("setup", (currentUser: any) => socket.join(currentUser));
+  socket.on("join room", (room: any) => socket.join(room));
+  socket.on("typing", (room: any) => socket.in(room).emit("typing"));
+  socket.on("stop typing", (room: any) => socket.in(room).emit("stop typing"));
 });

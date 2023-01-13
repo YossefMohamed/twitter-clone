@@ -1,6 +1,36 @@
 let chat;
 
 const chatNameinput = document.querySelector("#chatName");
+
+socket.emit("join room", chatId);
+
+const typeingToServer = (typing = true) => {
+  if (typing) socket.emit("typing", chatId);
+
+  setTimeout(() => {
+    socket.emit("stop typing", chatId);
+  }, 3000);
+};
+
+socket.on("typing", () => {
+  if (!document.querySelector(".typingElement"))
+    document.querySelector(".chatMessages").innerHTML =
+      document.querySelector(".chatMessages").innerHTML +
+      `<li class='message theirs pt-3 typingElement'>
+                <div class='messageContainer'>
+                    <span class='messageBody'>
+                      typing..
+                    </span>
+                </div>
+            </li>`;
+});
+
+socket.on("stop typing", () => {
+  if (document.querySelector(".typingElement")) {
+    document.querySelector(".typingElement").remove();
+  }
+});
+
 axios.get("/api/chats/" + chatId).then(({ data }) => {
   chat = data.data;
   chatNameinput.value = getChatName(chat);
@@ -41,13 +71,17 @@ const chatNameHandler = (event) => {
 chatNameinput.addEventListener("change", chatNameHandler);
 
 const messageContent = document.querySelector("#messageContent");
-
+messageContent.addEventListener("keyup", () => {
+  typeingToServer();
+});
 document
   .querySelector(".sendMessageButton")
   .addEventListener("click", (event) => {
     event.preventDefault();
     const content = messageContent.value;
     if (content.length) {
+      socket.emit("stop typing", chatId);
+
       messageContent.value = "";
       axios.post("/api/messages/", {
         content,

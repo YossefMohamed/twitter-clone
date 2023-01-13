@@ -682,7 +682,6 @@ button.coverPictureButton:hover {
   display: flex;
   align-items: flex-end;
   flex-shrink: 0;
-  -webkit-flex: 0;
 }
 
 .chatMessages .message .messageBody {
