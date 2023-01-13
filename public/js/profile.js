@@ -237,6 +237,10 @@ function loadPosts(isReply = false) {
         },
       })
       .then((res) => {
+        if (!res.data.data.length)
+          document.querySelector(
+            ".postsContainer"
+          ).innerHTML = `<h1 class="p-5">nothing to be shown</h1>`;
         res.data.data.map((post) => {
           console.log(
             post.retweetData && post.retweetData.postedBy._id === currentUser
