@@ -1,4 +1,5 @@
 import mongoose, { PopulatedDoc } from "mongoose";
+import { IChat } from "./chatSchema";
 import { IUser } from "./userSchema";
 
 const Schema = mongoose.Schema;
@@ -6,7 +7,7 @@ const Schema = mongoose.Schema;
 export interface IMessage extends mongoose.Document {
   sender: PopulatedDoc<IUser>;
   readBy: PopulatedDoc<IUser>;
-  chat: PopulatedDoc<{}>;
+  chat: PopulatedDoc<IChat>;
   content: string;
 }
 

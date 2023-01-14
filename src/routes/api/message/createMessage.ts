@@ -1,6 +1,7 @@
 import { Router } from "express";
-import Chat from "../../../schemas/chatSchema";
-import Message from "../../../schemas/messageSchema";
+import Chat, { IChat } from "../../../schemas/chatSchema";
+import Message, { IMessage } from "../../../schemas/messageSchema";
+import Notification from "../../../schemas/notificationsSchema";
 
 const router = Router();
 
@@ -33,11 +34,27 @@ router.post("/", async (req: any, res, next) => {
   await Chat.findByIdAndUpdate(chat, {
     latestMessage: message,
   });
+
+  await sendToUsersInTheChat(message.chat, message);
+
   res.status(200).json({
     status: "ok",
     data: message,
   });
 });
+
+const sendToUsersInTheChat = async (chat: IChat, message: IMessage) => {
+  chat.users.forEach(async (userId) => {
+    if (userId == message.sender._id.toString()) return;
+
+    await Notification.insertNotification({
+      userTo: userId,
+      userFrom: message.sender._id,
+      notificationType: "newMessage",
+      entityId: message.chat._id,
+    });
+  });
+};
 
 export { router as createMessageRouter };
 
