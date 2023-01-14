@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { ObjectId } from "mongodb";
+import Notification from "../../../schemas/notificationsSchema";
 import User from "../../../schemas/userSchema";
 
 const router = Router();
@@ -16,15 +17,31 @@ router.post("/:id/follow", async (req: any, res, next) => {
     }
 
     if (user.following && user.following.length) {
-      user.following = user.following.map((userId) => {
-        return new ObjectId(req.params.id).equals(userId);
-      }).length
-        ? user.following.filter(function (userId) {
-            return !new ObjectId(req.params.id).equals(userId);
-          })
-        : [...user.following, req.params.id];
+      if (
+        user.following.map((userId) => {
+          return new ObjectId(req.params.id).equals(userId);
+        }).length
+      ) {
+        user.following = user.following.filter(function (userId) {
+          return !new ObjectId(req.params.id).equals(userId);
+        });
+      } else {
+        user.following = [...user.following, req.params.id];
+        await Notification.insertNotification({
+          userTo: req.params.id,
+          userFrom: req.session.user._id,
+          notificationType: "follow",
+          entityId: req.session.user._id,
+        });
+      }
     } else {
       user.following = [req.params.id];
+      await Notification.insertNotification({
+        userTo: req.params.id,
+        userFrom: req.session.user._id,
+        notificationType: "follow",
+        entityId: req.session.user._id,
+      });
     }
 
     await user.save();
