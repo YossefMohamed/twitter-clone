@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { ObjectId } from "mongodb";
+import Notification from "../../../schemas/notificationsSchema";
 import Post, { IPost } from "../../../schemas/postSchema";
 import User from "../../../schemas/userSchema";
 
@@ -42,7 +43,14 @@ router.post("/:id/retweet", async (req: any, res, next) => {
       }
     );
 
-    console.log(post);
+    if (option === "$addToSet" && post) {
+      await Notification.insertNotification({
+        userTo: post.postedBy,
+        userFrom: req.session.user._id,
+        notificationType: "retweet",
+        entityId: post._id,
+      });
+    }
 
     req.session.user = await User.findById(req.session.user._id);
 

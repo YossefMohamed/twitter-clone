@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { ObjectId } from "mongodb";
+import Notification from "../../../schemas/notificationsSchema";
 import Post from "../../../schemas/postSchema";
-import User from "../../../schemas/userSchema";
 
 const router = Router();
 
@@ -32,6 +31,16 @@ router.post("/:id/reply", async (req: any, res, next) => {
       },
     },
   ]);
+  console.log(post);
+
+  if (post.replyTo) {
+    await Notification.insertNotification({
+      userTo: post.replyTo.postedBy._id,
+      userFrom: req.session.user._id,
+      notificationType: "reply",
+      entityId: post._id,
+    });
+  }
 
   res.status(200).json({
     status: "ok",
