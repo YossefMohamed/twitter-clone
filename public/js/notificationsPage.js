@@ -73,14 +73,21 @@ function getNotificationUrl(notification) {
   return url;
 }
 
-$(document).on("click", ".notification.active", (event) => {
+$(document).on("click", ".notification", (event) => {
   const container = $(event.target);
-  const notificationId = container.data().id;
-  const href = container.attr("href");
+  const notificationId = container.closest(".notification").attr("data-id");
+  const href = container.closest(".notification").attr("href");
   event.preventDefault();
   const goToNotification = () => (window.location = href);
+  console.log(href);
+
   axios.patch("/api/notifications/" + notificationId).then(({ data }) => {
-    console.log(data.data);
     goToNotification();
+  });
+});
+
+document.querySelector(".markAllAsRead").addEventListener("click", () => {
+  axios.patch("/api/notifications/").then(({ data }) => {
+    window.location.reload();
   });
 });

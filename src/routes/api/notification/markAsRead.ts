@@ -5,6 +5,8 @@ import Notification from "../../../schemas/notificationsSchema";
 const router = Router();
 
 router.patch("/:id", async (req: any, res, next) => {
+  console.log(req.params.id);
+
   const notification = await Notification.findByIdAndUpdate(
     new ObjectId(req.params.id),
     {

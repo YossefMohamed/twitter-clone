@@ -6,6 +6,7 @@ import { getChatsRouter } from "./chat/getChats";
 import { createMessageRouter } from "./message/createMessage";
 import { getMessagesByChat } from "./message/getMessagesByChat";
 import { getNotifications } from "./notification/getNotifications";
+import { markAllAsReadNotification } from "./notification/markAllAsRead";
 import { markAsReadNotification } from "./notification/markAsRead";
 import { createPostsRouter } from "./post/addPost";
 import { deletePostRouter } from "./post/deletePost";
@@ -43,5 +44,6 @@ router.use("/messages", getMessagesByChat);
 
 router.use("/notifications", getNotifications);
 router.use("/notifications", markAsReadNotification);
+router.use("/notifications", markAllAsReadNotification);
 
 export { router as ApiRouter };

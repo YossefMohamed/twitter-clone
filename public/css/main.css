@@ -763,3 +763,8 @@ button.coverPictureButton:hover {
 .resultListItem.active {
   background-color: var(--lightHover);
 }
+
+.markAllAsRead {
+  cursor: pointer;
+  padding: 5px;
+}
