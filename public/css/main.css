@@ -759,3 +759,7 @@ button.coverPictureButton:hover {
   width: 24px;
   margin-right: 7px;
 }
+
+.resultListItem.active {
+  background-color: var(--lightHover);
+}

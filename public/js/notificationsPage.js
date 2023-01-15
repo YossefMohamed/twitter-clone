@@ -6,6 +6,9 @@ const renderNotifications = (notifications, container) => {
   notifications.forEach((notification) => {
     const html = createNotificationHtml(notification);
     container.append(html);
+    $(html).mouseover(() => {
+      alert("j");
+    });
   });
 
   if (notifications.length == 0) {
@@ -14,6 +17,7 @@ const renderNotifications = (notifications, container) => {
 };
 
 function createNotificationHtml(notification) {
+  console.log(notification);
   const userFrom = notification.userFrom;
   const text = getNotificationText(notification);
   const href = getNotificationUrl(notification);
