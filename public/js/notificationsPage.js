@@ -6,7 +6,7 @@ const renderNotifications = (notifications, container) => {
   notifications.forEach((notification) => {
     const html = createNotificationHtml(notification);
     container.append(html);
-    $(html).mouseover(() => {
+    $(html).click(() => {
       alert("j");
     });
   });
@@ -17,13 +17,12 @@ const renderNotifications = (notifications, container) => {
 };
 
 function createNotificationHtml(notification) {
-  console.log(notification);
   const userFrom = notification.userFrom;
   const text = getNotificationText(notification);
   const href = getNotificationUrl(notification);
   const className = notification.opened ? "" : "active";
 
-  return `<a href='${href}' class='resultListItem notification ${className}'>
+  return `<a href='${href}'  class='resultListItem notification ${className}' data-id=${notification._id}>
                 <div class='resultsImageContainer'>
                     <img src='/images/${userFrom.profilePic}'>
                 </div>
@@ -72,3 +71,11 @@ function getNotificationUrl(notification) {
 
   return url;
 }
+
+$(document).on("click", ".notification.active", (event) => {
+  const container = $(event.target);
+  const notificationId = container.data().id;
+  const href = container.attr("href");
+  event.preventDefault();
+  const goToNotification = () => (window.location = href);
+});
