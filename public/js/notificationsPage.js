@@ -17,6 +17,7 @@ const renderNotifications = (notifications, container) => {
 };
 
 function createNotificationHtml(notification) {
+  console.log(notification);
   const userFrom = notification.userFrom;
   const text = getNotificationText(notification);
   const href = getNotificationUrl(notification);
@@ -78,4 +79,8 @@ $(document).on("click", ".notification.active", (event) => {
   const href = container.attr("href");
   event.preventDefault();
   const goToNotification = () => (window.location = href);
+  axios.patch("/api/notifications/" + notificationId).then(({ data }) => {
+    console.log(data.data);
+    goToNotification();
+  });
 });
