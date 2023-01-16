@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import { app } from "./app";
 import { IUser } from "./schemas/userSchema";
 
@@ -23,4 +22,8 @@ io.on("connection", (socket: any) => {
       }
     });
   });
+
+  socket.on("notification received", (room: any) =>
+    socket.in(room).emit("notification received")
+  );
 });

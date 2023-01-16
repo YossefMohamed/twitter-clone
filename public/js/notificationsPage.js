@@ -1,5 +1,6 @@
 axios.get("/api/notifications/").then(({ data }) => {
   renderNotifications(data.data, $(".resultsContainer"));
+  refreshNotifications();
 });
 
 const renderNotifications = (notifications, container) => {

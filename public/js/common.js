@@ -214,15 +214,20 @@ document.addEventListener("click", (event) => {
       const postId = getPostIdFromElement(buttonElements[i]);
       if (postId) {
         axios.patch("/api/posts/" + postId + "/like").then((res) => {
-          const posts = document.querySelectorAll(`[data-id="${postId}"]`);
+          emitNotification(res.data.data.postedBy);
 
+          const posts = document.querySelectorAll(`[data-id="${postId}"]`);
           posts.forEach((post) => {
-            post.querySelector(".likesCounter").innerHTML =
+            buttonElements[i].querySelector(".likesCounter").innerHTML =
               res.data.data.likes.length || "";
 
             res.data.data.likes.includes(currentUser)
-              ? post.querySelector(".likeSpan").classList.add("active")
-              : post.querySelector(".likeSpan").classList.remove("active");
+              ? buttonElements[i]
+                  .querySelector(".likeSpan")
+                  .classList.add("active")
+              : buttonElements[i]
+                  .querySelector(".likeSpan")
+                  .classList.remove("active");
           });
         });
       }
@@ -239,14 +244,18 @@ document.addEventListener("click", (event) => {
       if (postId) {
         axios.post("/api/posts/" + postId + "/retweet").then((res) => {
           const posts = document.querySelectorAll(`[data-id="${postId}"]`);
-
+          emitNotification(res.data.data.postedBy);
           posts.forEach((post) => {
-            post.querySelector(".retweetCounter").innerHTML =
+            buttonElements[i].querySelector(".retweetCounter").innerHTML =
               res.data.data.retweetUsers.length || "";
 
             res.data.data.retweetUsers.includes(currentUser)
-              ? post.querySelector(".retweetSpan").classList.add("active")
-              : post.querySelector(".retweetSpan").classList.remove("active");
+              ? buttonElements[i]
+                  .querySelector(".retweetSpan")
+                  .classList.add("active")
+              : buttonElements[i]
+                  .querySelector(".retweetSpan")
+                  .classList.remove("active");
           });
         });
       }
@@ -288,6 +297,7 @@ replySubmitButton &&
         content: textboxValue,
       })
       .then((res) => {
+        emitNotification(res.data.data.replyTo.postedBy._id);
         location.reload();
       });
   });
@@ -414,9 +424,6 @@ const getOtherChatUsers = (users) => {
 
   return users.filter((user) => user._id !== currentUser);
 };
-const displayAlertOnIcon = (container) => {
-  document.querySelector(container).style.display = "block";
-};
 
 const createNotificationHtml = (notification) => {
   const userFrom = notification.userFrom;
@@ -424,8 +431,6 @@ const createNotificationHtml = (notification) => {
   const href = getNotificationUrl(notification);
   const className = notification.opened ? "" : "active";
 
-  !notification.opened && displayAlertOnIcon(".notificationsNumber");
-  console.log(!notification.opened);
   return `<a href='${href}'  class='resultListItem notification ${className}' data-id=${notification._id}>
                 <div class='resultsImageContainer'>
                     <img src='/images/${userFrom.profilePic}'>
@@ -435,3 +440,5 @@ const createNotificationHtml = (notification) => {
                 </div>
             </a>`;
 };
+
+$(document).ready(refreshNotifications());
