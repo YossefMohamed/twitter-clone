@@ -11,6 +11,12 @@ const refreshNotifications = () => {
   });
 };
 
+const refreshMessages = () => {
+  axios.get("/api/chats/").then(({ data }) => {
+    console.log(data);
+  });
+};
+
 const socket = io("http://localhost:3000");
 
 socket.emit("setup", currentUser);
@@ -23,7 +29,15 @@ const emitNotification = (userId) => {
   socket.emit("notification received", userId);
 };
 
+const emitMessage = (userId) => {
+  if (userId === currentUser) return;
+  socket.emit("message received", userId);
+};
+
 socket.on("notification received", () => {
-  console.log("newwwwwwwww");
   refreshNotifications();
+});
+
+socket.on("message received", () => {
+  refreshMessages();
 });

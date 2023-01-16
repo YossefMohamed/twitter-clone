@@ -94,7 +94,9 @@ document
           document.querySelector(".chatMessages").innerHTML =
             document.querySelector(".chatMessages").innerHTML +
             messageReceived(data.data);
-
+          data.data.chat.users.map(({ _id }) => {
+            emitMessage(_id);
+          });
           scrollToBottom(".chatMessages");
         });
     }
