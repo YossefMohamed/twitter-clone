@@ -414,3 +414,24 @@ const getOtherChatUsers = (users) => {
 
   return users.filter((user) => user._id !== currentUser);
 };
+const displayAlertOnIcon = (container) => {
+  document.querySelector(container).style.display = "block";
+};
+
+const createNotificationHtml = (notification) => {
+  const userFrom = notification.userFrom;
+  const text = getNotificationText(notification);
+  const href = getNotificationUrl(notification);
+  const className = notification.opened ? "" : "active";
+
+  !notification.opened && displayAlertOnIcon(".notificationsNumber");
+  console.log(!notification.opened);
+  return `<a href='${href}'  class='resultListItem notification ${className}' data-id=${notification._id}>
+                <div class='resultsImageContainer'>
+                    <img src='/images/${userFrom.profilePic}'>
+                </div>
+                <div class='resultsDetailsContainer ellipsis'>
+                    <span class='ellipsis'>${text}</span>
+                </div>
+            </a>`;
+};

@@ -768,3 +768,18 @@ button.coverPictureButton:hover {
   cursor: pointer;
   padding: 5px;
 }
+
+.notificationsContainer,
+.messagesContainer {
+  position: relative;
+}
+.number {
+  padding: 5px;
+  color: var(--buttonHoverBg);
+  background-color: var(--danger);
+  border-radius: 100%;
+  position: absolute;
+  top: 10px;
+  display: none;
+  right: 10px;
+}

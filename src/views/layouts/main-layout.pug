@@ -28,10 +28,12 @@ html(lang="en")
                         i.fas.fa-home
                     a(href="/search")
                         i.fas.fa-search
-                    a(href="/notifications")
+                    a(href="/notifications").notificationsContainer
                         i.fas.fa-bell
-                    a(href="/messages")
+                        span.number.notificationsNumber
+                    a(href="/messages").messagesContainer
                         i.fas.fa-envelope
+                        span.number.messagesNumber
                     a(href="/profile")
                         i.fas.fa-user
                     a(href="/logout")
