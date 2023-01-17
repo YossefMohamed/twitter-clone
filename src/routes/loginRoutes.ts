@@ -26,15 +26,17 @@ router.post("/", async (req: any, res, next) => {
 
       if (result === true) {
         req.session.user = user;
-        return res.redirect("/");
+        return res.redirect(req.query.red ? req.query.red : "/");
       }
     }
 
     payload.errorMessage = "Login credentials incorrect.";
+
     return res.status(200).render("login", payload);
   }
 
   payload.errorMessage = "Make sure each field has a valid value.";
+
   res.status(200).render("login");
 });
 

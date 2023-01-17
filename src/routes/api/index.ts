@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { requireLogin } from "../../middlewares/requireLogin";
 import { addChatRouter } from "./chat/addChat";
 import { changeChatNameRouter } from "./chat/changeChatName";
 import { getChatRouter } from "./chat/getChat";
@@ -21,6 +22,8 @@ import { getUsersRouter } from "./user/getUsers";
 import { uploadImageRouter } from "./user/imageUpload";
 
 const router = Router();
+
+router.use(requireLogin);
 router.use("/posts", createPostsRouter);
 router.use("/posts", getPostsRouter);
 router.use("/posts", likePostRouter);
