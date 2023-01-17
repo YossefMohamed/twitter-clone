@@ -24,14 +24,6 @@ import { messageRouter } from "./routes/messageRoutes";
 import { IUser } from "./schemas/userSchema";
 import { notificationRouter } from "./routes/notificationRoutes";
 
-declare module "express" {
-  export interface Request {
-    session: {
-      user: IUser;
-    };
-  }
-}
-
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "./views"));
 
@@ -46,7 +38,13 @@ app.use(
 );
 
 // add user to express
-
+declare module "express" {
+  export interface Request {
+    session: {
+      user: IUser;
+    };
+  }
+}
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(

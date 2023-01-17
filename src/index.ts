@@ -1,5 +1,4 @@
 import { app } from "./app";
-import { IUser } from "./schemas/userSchema";
 
 const port = process.env.PORT! || 3000;
 const server = app.listen(port, () => {
