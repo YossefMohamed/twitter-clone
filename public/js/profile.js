@@ -65,7 +65,6 @@ $(document).ready(() => {
     followButton &&
       followButton.addEventListener("click", () => {
         const userId = followButton.getAttribute("data-user");
-        console.log(userId);
         axios.post("/api/users/" + userId + "/follow").then(({ data }) => {
           if (
             data.data.following.map((userId) => {
@@ -172,9 +171,7 @@ $(document).ready(() => {
         const formData = new FormData();
         formData.append("filePhoto", blob);
         formData.append("type", "profile");
-        for (var pair of formData.entries()) {
-          console.log(pair[0] + ", " + pair[1]);
-        }
+
         axios({
           method: "post",
           url: "/api/users/upload",
@@ -205,9 +202,7 @@ $(document).ready(() => {
         const formData = new FormData();
         formData.append("filePhoto", blob);
         formData.append("type", "cover");
-        for (var pair of formData.entries()) {
-          console.log(pair[0] + ", " + pair[1]);
-        }
+
         axios({
           method: "post",
           url: "/api/users/upload",
@@ -242,11 +237,6 @@ function loadPosts(isReply = false) {
             ".postsContainer"
           ).innerHTML = `<h1 class="p-5">nothing to be shown</h1>`;
         res.data.data.map((post) => {
-          console.log(
-            post.retweetData && post.retweetData.postedBy._id === currentUser
-              ? post.retweetData.pinned
-              : false
-          );
           !post.pinned
             ? (document.querySelector(".postsContainer").innerHTML =
                 createPost(post) +

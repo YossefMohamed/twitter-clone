@@ -68,7 +68,6 @@ const createPost = (postData, largFont = false) => {
   let timestamp = postData.createdAt;
   timestamp = moment(timestamp).from();
   timestamp = timestamp[0].toUpperCase() + timestamp.substring(1);
-  console.log(isRetweet ? isRetweetData : false);
   let replyFlag = "";
   if (postData.replyTo && postData.replyTo._id) {
     if (!postData.replyTo._id) {
@@ -278,7 +277,6 @@ const replySubmitButton = document.querySelector("#submitReplyButton");
 replyTextBox &&
   replyTextBox.addEventListener("keyup", (event) => {
     const textboxValue = replyTextBox.value.trim();
-    console.log(textboxValue.length, textboxValue);
     if (textboxValue.length && textboxValue.length < 250) {
       replySubmitButton.disabled = false;
 
@@ -332,7 +330,6 @@ document.addEventListener("click", (event) => {
 
   for (let i = 0; i < buttonElements.length; i++) {
     if (buttonElements[i].contains(event.target)) {
-      console.log(postId);
       postId = getPostIdFromElement(buttonElements[i]);
       const submitDelete = document.querySelector("#submitDeleteButton");
       submitDelete.addEventListener("click", () => {

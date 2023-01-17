@@ -20,10 +20,8 @@ router.patch("/:id/pin", async (req: any, res, next) => {
       message: "Post not found",
     });
   }
-  console.log(post, !post.pinned);
 
   post.pinned = post.pinned ? false : true;
-  console.log(post.pinned);
 
   await post.save();
   res.status(200).json({

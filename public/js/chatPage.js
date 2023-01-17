@@ -139,7 +139,6 @@ const createMessageHtml = (message, nextMessage, lastSenderId) => {
 };
 
 socket.on("message received", (newMessage) => {
-  console.log(newMessage);
   document.querySelector(".chatMessages").innerHTML =
     document.querySelector(".chatMessages").innerHTML +
     messageReceived(newMessage);

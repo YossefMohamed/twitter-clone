@@ -3,7 +3,7 @@ import { Router } from "express";
 const router = Router();
 
 router.get("/", (req: any, res, next) => {
-  var payload = {
+  const payload = {
     pageTitle: "Home",
     userLoggedIn: req.session.user,
     userLoggedInJs: JSON.stringify(req.session.user),

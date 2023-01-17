@@ -19,9 +19,9 @@ block content
         a(href="/login") Already have an account? Login here.
     
     script.
-        var passwordField = document.getElementById("password")
-        var passwordConfirmField = document.getElementById("passwordConf")
-        var form = document.getElementById("registerForm")
+        const passwordField = document.getElementById("password")
+        const passwordConfirmField = document.getElementById("passwordConf")
+        const form = document.getElementById("registerForm")
 
         function validateForm() {
             if(passwordField.value != passwordConfirmField.value) {

@@ -31,8 +31,6 @@ router.post("/:id/reply", async (req: any, res, next) => {
       },
     },
   ]);
-  console.log(post);
-
   if (post.replyTo) {
     await Notification.insertNotification({
       userTo: post.replyTo.postedBy._id,

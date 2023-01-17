@@ -35,7 +35,6 @@ function outputUsers(results, container) {
   followButton &&
     followButton.addEventListener("click", () => {
       const userId = followButton.getAttribute("data-user");
-      console.log(userId);
       axios.post("/api/users/" + userId + "/follow").then(({ data }) => {
         if (
           data.data.following.map((userId) => {
@@ -58,7 +57,6 @@ function outputUsers(results, container) {
 function createUserHtml(userData, showFollowButton) {
   const userLoggedIn = JSON.parse(currentUserObj);
   const name = userData.firstName + " " + userData.lastName;
-  console.log(userLoggedIn);
   const isFollowing =
     userLoggedIn.following && userLoggedIn.following.includes(userData._id);
   const text = isFollowing ? "Following" : "Follow";

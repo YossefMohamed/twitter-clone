@@ -5,14 +5,12 @@ const router = Router();
 
 router.post("/", async (req: any, res, next) => {
   if (!req.body.users) {
-    console.log("Users param not sent with request");
     return res.status(400);
   }
 
   const users = req.body.users;
 
   if (users.length == 0) {
-    console.log("Users array is empty");
     return res.status(400);
   }
 

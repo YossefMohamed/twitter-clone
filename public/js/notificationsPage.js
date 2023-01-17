@@ -63,8 +63,6 @@ $(document).on("click", ".notification", (event) => {
   const href = container.closest(".notification").attr("href");
   event.preventDefault();
   const goToNotification = () => (window.location = href);
-  console.log(href);
-
   axios.patch("/api/notifications/" + notificationId).then(({ data }) => {
     goToNotification();
   });

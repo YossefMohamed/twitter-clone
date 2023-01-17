@@ -8,7 +8,6 @@ router.post(
   "/upload",
   upload.single("filePhoto"),
   async (req: any, res, next) => {
-    console.log(req.body);
     const user =
       req.body.type === "profile"
         ? await User.findByIdAndUpdate(

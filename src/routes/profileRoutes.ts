@@ -11,7 +11,6 @@ router.get("/", async (req: any, res: any, next: any) => {
     userLoggedInJs: JSON.stringify(req.session.user),
     profileUser: user,
   };
-  console.log(payload);
 
   res.status(200).render("profilePage", payload);
 });
@@ -53,15 +52,14 @@ async function getPayload(username: string, userLoggedIn: any) {
 }
 
 router.get("/:username/following", async (req: any, res, next) => {
-  var payload: any = await getPayload(req.params.username, req.session.user);
+  const payload: any = await getPayload(req.params.username, req.session.user);
   payload.selectedTab = "following";
-  console.log(payload, "S");
 
   res.status(200).render("followersAndFollowing", payload);
 });
 
 router.get("/:username/followers", async (req: any, res, next) => {
-  var payload: any = await getPayload(req.params.username, req.session.user);
+  const payload: any = await getPayload(req.params.username, req.session.user);
   payload.selectedTab = "followers";
 
   res.status(200).render("followersAndFollowing", payload);

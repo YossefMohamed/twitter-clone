@@ -4,7 +4,6 @@ const router = Router();
 
 router.delete("/:id", async (req: any, res, next) => {
   const post = await Post.findById(req.params.id);
-  console.log(post?.postedBy, req.session.user);
 
   if (!post || post.postedBy === req.session.user) {
     return res.status(404).json({

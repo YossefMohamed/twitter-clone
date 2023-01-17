@@ -1,6 +1,5 @@
 document.querySelector(".resultsContainer").innerHTML = getSpinner();
 axios.get("/api/chats/").then(({ data }) => {
-  console.log(data);
   deleteSpinner();
   outputChatList(data.data, $(".resultsContainer"));
 });
