@@ -13,7 +13,10 @@ const refreshNotifications = () => {
 
 const refreshMessages = () => {
   axios.get("/api/chats/").then(({ data }) => {
-    console.log(data);
+    data.data.forEach((chat) => {
+      if (!chat.latestMessage.readBy.some((user) => user === currentUser))
+        document.querySelector(".messagesNumber").style.display = "block";
+    });
   });
 };
 

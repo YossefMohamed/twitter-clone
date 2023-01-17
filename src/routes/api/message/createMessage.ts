@@ -18,6 +18,7 @@ router.post("/", async (req: any, res, next) => {
     sender: req.session.user._id,
     content,
     chat,
+    readBy: [req.session.user._id],
   });
 
   message = await message.populate([

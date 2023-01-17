@@ -441,4 +441,7 @@ const createNotificationHtml = (notification) => {
             </a>`;
 };
 
-$(document).ready(refreshNotifications());
+$(document).ready(() => {
+  refreshMessages();
+  refreshNotifications();
+});

@@ -13,7 +13,7 @@ router.get("/", async (req: any, res, next) => {
       },
       {
         path: "latestMessage",
-        select: "content latestMessage",
+        select: "content readBy",
       },
     ])
     .sort({ updatedAt: -1 });

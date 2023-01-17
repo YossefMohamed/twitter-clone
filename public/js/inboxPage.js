@@ -1,18 +1,18 @@
 document.querySelector(".resultsContainer").innerHTML = getSpinner();
 axios.get("/api/chats/").then(({ data }) => {
+  console.log(data);
   deleteSpinner();
   outputChatList(data.data, $(".resultsContainer"));
 });
 
 const outputChatList = (chatList, container) => {
+  if (chatList.length == 0) {
+    return container.append("<span class='noResults'>Nothing to show.</span>");
+  }
   chatList.forEach((chat) => {
     const html = createChatHtml(chat);
     container.append(html);
   });
-
-  if (chatList.length == 0) {
-    container.append("<span class='noResults'>Nothing to show.</span>");
-  }
 };
 
 const createChatHtml = (chatData) => {
@@ -21,8 +21,15 @@ const createChatHtml = (chatData) => {
   const latestMessage = chatData.latestMessage
     ? chatData.latestMessage.content
     : "This is the latest message";
-
-  return `<a href='/messages/${chatData._id}' class='resultListItem'>
+  let readByCurrentUser = false;
+  if (chatData.latestMessage) {
+    readByCurrentUser = chatData.latestMessage.readBy.some((user) => {
+      return user === currentUser;
+    });
+  }
+  return `<a href='/messages/${chatData._id}' class='resultListItem ${
+    !readByCurrentUser && "active"
+  }'>
           ${image}
                         <div class='resultsDetailsContainer ellipsis'>
                             <span class='heading ellipsis'>${chatName}</span>
