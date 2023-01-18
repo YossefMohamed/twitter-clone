@@ -29,7 +29,6 @@ socket.emit("setup", currentUser);
 socket.on("connected", () => (connected = true));
 
 const emitNotification = (userId) => {
-  if (userId === currentUser) return;
   socket.emit("notification received", userId);
 };
 
