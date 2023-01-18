@@ -20,7 +20,7 @@ const refreshMessages = () => {
   });
 };
 
-const socket = io(window.location.origin);
+const socket = io(window.location.origin+":3000");
 
 socket.emit("setup", currentUser);
 
