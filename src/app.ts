@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 import path from "path";
 
@@ -64,7 +64,11 @@ app.use("/logout", requireLogin, logoutRoutes);
 app.use("/messages", requireLogin, messageRouter);
 app.use("/notifications", requireLogin, notificationRouter);
 
-app.get("/", requireLogin, HomeRoutes);
+app.use("/", requireLogin, HomeRoutes);
 app.use("/posts/:id", requireLogin, postRoutes);
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  res.redirect("/404");
+});
 
 export { app };
