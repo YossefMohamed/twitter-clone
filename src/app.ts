@@ -9,7 +9,7 @@ import session from "express-session";
 const app = express();
 
 app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "./views"));
+app.set("views", path.join(__dirname, "../views"));
 
 import loginRouter from "./routes/loginRoutes";
 import registerRouter from "./routes/registerRoutes";
@@ -25,8 +25,6 @@ import { IUser } from "./schemas/userSchema";
 import { notificationRouter } from "./routes/notificationRoutes";
 import { notFoundRoutes } from "./routes/404";
 
-app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "./views"));
 
 new Database();
 
