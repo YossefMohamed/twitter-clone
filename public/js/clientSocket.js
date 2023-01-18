@@ -14,13 +14,15 @@ const refreshNotifications = () => {
 const refreshMessages = () => {
   axios.get("/api/chats/").then(({ data }) => {
     data.data.forEach((chat) => {
-      if (!chat.latestMessage.readBy.some((user) => user === currentUser))
-        document.querySelector(".messagesNumber").style.display = "block";
+      if (chat.latestMessage) {
+        if (!chat.latestMessage.readBy.some((user) => user === currentUser))
+          document.querySelector(".messagesNumber").style.display = "block";
+      }
     });
   });
 };
 
-const socket = io(window.location.protocol + '//' + window.location.host);
+const socket = io(window.location.protocol + "//" + window.location.host);
 
 socket.emit("setup", currentUser);
 
@@ -31,7 +33,7 @@ const emitNotification = (userId) => {
   socket.emit("notification received", userId);
 };
 
-const emitMessage = (userId) => {
+const emitMessage = (userId, message) => {
   if (userId === currentUser) return;
   socket.emit("message received", userId);
 };

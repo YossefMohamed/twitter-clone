@@ -1,6 +1,6 @@
 import { app } from "./app";
 
-const port =  3000;
+const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`Express is listening at http://localhost:${port}`);
 });
@@ -15,7 +15,9 @@ io.on("connection", (socket: any) => {
   socket.on("message received", (room: any) =>
     socket.in(room).emit("message received")
   );
-
+  socket.on("new message", (message: any) =>
+    socket.in(message.chat._id).emit("new message", message)
+  );
   socket.on("notification received", (room: any) =>
     socket.in(room).emit("notification received")
   );

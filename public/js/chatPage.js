@@ -23,6 +23,7 @@ socket.on("typing", () => {
                     </span>
                 </div>
             </li>`;
+  scrollToBottom(".chatMessages");
 });
 
 socket.on("stop typing", () => {
@@ -41,7 +42,7 @@ axios
       deleteSpinner();
       if (!data.data.length) {
         return (document.querySelector(".chatMessages").innerHTML = `
-      <h1>
+      <h1 class="noMessageHeader">
       
       Let's Start A Conversation
       
@@ -93,19 +94,21 @@ document
           chat: chatId,
         })
         .then(({ data }) => {
+          document.querySelector(".noMessageHeader") &&
+            document.querySelector(".noMessageHeader").remove();
           socket.emit("new message", data.data);
           document.querySelector(".chatMessages").innerHTML =
             document.querySelector(".chatMessages").innerHTML +
             messageReceived(data.data);
           data.data.chat.users.map(({ _id }) => {
-            emitMessage(_id);
+            emitMessage(_id, data.data);
           });
           scrollToBottom(".chatMessages");
         });
     }
   });
 
-const createMessageHtml = (message, nextMessage, lastSenderId) => {
+const createMessageHtml = (message, lastSenderId) => {
   const sender = message.sender;
   const senderName = sender.firstName + " " + sender.lastName;
 
@@ -141,10 +144,15 @@ const createMessageHtml = (message, nextMessage, lastSenderId) => {
           </li>`;
 };
 
-socket.on("message received", (newMessage) => {
+socket.on("message received", () => {
+  refreshMessages();
+});
+
+socket.on("new message", (newMessage) => {
   document.querySelector(".chatMessages").innerHTML =
     document.querySelector(".chatMessages").innerHTML +
     messageReceived(newMessage);
+  scrollToBottom(".chatMessages");
 });
 
 const messageReceived = (newMessage) => {
