@@ -67,6 +67,12 @@ app.use("/notifications", requireLogin, notificationRouter);
 app.use("/", requireLogin, HomeRoutes);
 app.use("/posts/:id", requireLogin, postRoutes);
 
+
+app.use("*" ,( req: Request, res: Response, next: NextFunction) => {
+  res.redirect("/404");
+});
+
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.redirect("/404");
 });
