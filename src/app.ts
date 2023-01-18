@@ -23,6 +23,7 @@ import { searchRoutes } from "./routes/searchRoutes";
 import { messageRouter } from "./routes/messageRoutes";
 import { IUser } from "./schemas/userSchema";
 import { notificationRouter } from "./routes/notificationRoutes";
+import { notFoundRoutes } from "./routes/404";
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "./views"));
@@ -38,13 +39,13 @@ app.use(
 );
 
 // add user to express
-declare module "express" {
-  export interface Request {
-    session: {
-      user: IUser;
-    };
+
+declare module "express-session" {
+  interface SessionData {
+    user: IUser;
   }
 }
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(
@@ -57,6 +58,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
+app.use("/404", notFoundRoutes);
 app.use("/api", ApiRouter);
 app.use("/profile", requireLogin, profileRoutes);
 app.use("/search", requireLogin, searchRoutes);

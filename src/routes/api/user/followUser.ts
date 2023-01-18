@@ -1,13 +1,19 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 import Notification from "../../../schemas/notificationsSchema";
 import User from "../../../schemas/userSchema";
 
 const router = Router();
 
 router.post("/:id/follow", async (req: any, res, next) => {
+  if (!mongoose.isValidObjectId(req.params.id))
+    return res.status(404).json({
+      status: "failed",
+      message: "Not Found",
+    });
   try {
-    const user = await User.findById(req.session.user._id);
+    const user = await User.findById(req.session.user?._id);
 
     if (!user) {
       return res.status(400).json({
@@ -29,18 +35,18 @@ router.post("/:id/follow", async (req: any, res, next) => {
         user.following = [...user.following, req.params.id];
         await Notification.insertNotification({
           userTo: req.params.id,
-          userFrom: req.session.user._id,
+          userFrom: req.session.user?._id,
           notificationType: "follow",
-          entityId: req.session.user._id,
+          entityId: req.session.user?._id,
         });
       }
     } else {
       user.following = [req.params.id];
       await Notification.insertNotification({
         userTo: req.params.id,
-        userFrom: req.session.user._id,
+        userFrom: req.session.user?._id,
         notificationType: "follow",
-        entityId: req.session.user._id,
+        entityId: req.session.user?._id,
       });
     }
 

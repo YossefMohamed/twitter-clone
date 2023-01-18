@@ -3,7 +3,7 @@ import Post from "../../../schemas/postSchema";
 
 const router = Router();
 
-router.post("/", async (req: any, res, next) => {
+router.post("/", async (req: Request, res, next) => {
   try {
     if (!req.body.content) {
       return res.status(400).json({
@@ -13,7 +13,7 @@ router.post("/", async (req: any, res, next) => {
     }
     let post = await Post.create({
       content: req.body.content,
-      postedBy: req.session.user._id,
+      postedBy: req.session.user?._id,
     });
     post = await post.populate("postedBy");
     res.status(200).json({

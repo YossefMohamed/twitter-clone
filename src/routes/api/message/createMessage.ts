@@ -1,11 +1,11 @@
-import { Router } from "express";
+import { Request, Router } from "express";
 import Chat, { IChat } from "../../../schemas/chatSchema";
 import Message, { IMessage } from "../../../schemas/messageSchema";
 import Notification from "../../../schemas/notificationsSchema";
 
 const router = Router();
 
-router.post("/", async (req: any, res, next) => {
+router.post("/", async (req: Request, res, next) => {
   const { content, chat } = req.body;
 
   if (!(content && chat)) {
@@ -15,10 +15,10 @@ router.post("/", async (req: any, res, next) => {
     });
   }
   let message = await Message.create({
-    sender: req.session.user._id,
+    sender: req.session.user?._id,
     content,
     chat,
-    readBy: [req.session.user._id],
+    readBy: [req.session.user?._id],
   });
 
   message = await message.populate([

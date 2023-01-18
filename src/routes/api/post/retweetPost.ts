@@ -1,15 +1,21 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 import Notification from "../../../schemas/notificationsSchema";
 import Post, { IPost } from "../../../schemas/postSchema";
 import User from "../../../schemas/userSchema";
 
 const router = Router();
 
-router.post("/:id/retweet", async (req: any, res, next) => {
+router.post("/:id/retweet", async (req: Request, res, next) => {
+  if (!mongoose.isValidObjectId(req.params.id))
+    return res.status(404).json({
+      status: "failed",
+      message: "Not Found",
+    });
   try {
     const postId = req.params.id;
-    const userId = req.session.user._id;
+    const userId = req.session.user?._id;
 
     // try and delete retweet
     const deletedPost = await Post.findOneAndDelete({
@@ -46,13 +52,14 @@ router.post("/:id/retweet", async (req: any, res, next) => {
     if (option === "$addToSet" && post) {
       await Notification.insertNotification({
         userTo: post.postedBy,
-        userFrom: req.session.user._id,
+        userFrom: req.session.user?._id,
         notificationType: "retweet",
         entityId: post._id,
       });
     }
 
-    req.session.user = await User.findById(req.session.user._id);
+    req.session.user =
+      (await User.findById(req.session.user?._id)) || req.session.user;
 
     return res.status(200).json({
       status: "ok",
@@ -61,7 +68,7 @@ router.post("/:id/retweet", async (req: any, res, next) => {
   } catch (error: any) {
     res.status(404).json({
       status: "failed",
-      error: error.message,
+      error: "Not found",
     });
   }
 });

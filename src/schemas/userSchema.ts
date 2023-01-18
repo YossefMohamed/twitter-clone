@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import mongoose, { PopulatedDoc } from "mongoose";
 
 const Schema = mongoose.Schema;
@@ -13,6 +14,7 @@ export interface IUser extends mongoose.Document {
   createdAt?: Date;
   updatedAt?: Date;
   following: PopulatedDoc<IUser>[];
+  likes?: PopulatedDoc<IUser>[];
 }
 
 const userSchema: mongoose.Schema<IUser> = new mongoose.Schema<IUser>(

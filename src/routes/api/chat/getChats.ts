@@ -1,11 +1,11 @@
-import { Router } from "express";
+import { Request, Router } from "express";
 import Chat from "../../../schemas/chatSchema";
 
 const router = Router();
 
-router.get("/", async (req: any, res, next) => {
+router.get("/", async (req: Request, res, next) => {
   const chats = await Chat.find({
-    users: { $elemMatch: { $eq: req.session.user._id } },
+    users: { $elemMatch: { $eq: req.session.user?._id } },
   })
     .populate([
       {

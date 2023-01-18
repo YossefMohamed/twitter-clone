@@ -1,8 +1,14 @@
 import { NextFunction, Request, Response, Router } from "express";
+import mongoose from "mongoose";
 import Post from "../../../schemas/postSchema";
 const router = Router();
 
-router.delete("/:id", async (req: any, res, next) => {
+router.delete("/:id", async (req: Request, res, next) => {
+  if (!mongoose.isValidObjectId(req.params.id))
+    return res.status(404).json({
+      status: "failed",
+      message: "Not Found",
+    });
   const post = await Post.findById(req.params.id);
 
   if (!post || post.postedBy === req.session.user) {

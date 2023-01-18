@@ -1,9 +1,9 @@
-import { Router } from "express";
+import { Request, Router } from "express";
 import Chat from "../schemas/chatSchema";
 
 const router = Router();
 
-router.get("/", (req: any, res, next) => {
+router.get("/", (req: Request, res, next) => {
   res.status(200).render("notificationsPage", {
     pageTitle: "Notifications",
     userLoggedIn: req.session.user,

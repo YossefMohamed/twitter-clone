@@ -1,8 +1,14 @@
 import { NextFunction, Request, Response, Router } from "express";
+import mongoose from "mongoose";
 import Post from "../../../schemas/postSchema";
 const router = Router();
 
-router.get("/:id", async (req: any, res, next) => {
+router.get("/:id", async (req: Request, res: Response) => {
+  if (!mongoose.isValidObjectId(req.params.id))
+    return res.status(404).json({
+      status: "failed",
+      message: "Not Found",
+    });
   let post = await Post.findOne({
     _id: req.params.id,
   }).sort("createdAt");

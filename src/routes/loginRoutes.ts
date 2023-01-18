@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Router } from "express";
 import User from "../schemas/userSchema";
 import bcrypt from "bcrypt";
 const router = Router();
@@ -7,9 +7,9 @@ router.get("/", (req, res, next) => {
   res.status(200).render("login");
 });
 
-router.post("/", async (req: any, res, next) => {
+router.post("/", async (req: Request, res, next) => {
   const payload = req.body;
-
+  const query = (req.query.red as string) || "/";
   if (req.body.logUsername && req.body.logPassword) {
     const user = await User.findOne({
       $or: [
@@ -26,7 +26,7 @@ router.post("/", async (req: any, res, next) => {
 
       if (result === true) {
         req.session.user = user;
-        return res.redirect(req.query.red ? req.query.red : "/");
+        return res.redirect(query);
       }
     }
 

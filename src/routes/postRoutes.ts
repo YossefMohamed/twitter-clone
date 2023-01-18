@@ -1,7 +1,7 @@
-import { Router } from "express";
+import { Request, Router } from "express";
 const router = Router({ mergeParams: true });
 
-router.get("/", (req: any, res, next) => {
+router.get("/", (req: Request, res, next) => {
   const payload = {
     pageTitle: "Tweet",
     userLoggedIn: req.session.user,

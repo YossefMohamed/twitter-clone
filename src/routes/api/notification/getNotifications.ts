@@ -1,11 +1,11 @@
-import { Router } from "express";
+import { Request, Router } from "express";
 import Notification from "../../../schemas/notificationsSchema";
 
 const router = Router();
 
-router.get("/", async (req: any, res, next) => {
+router.get("/", async (req: Request, res, next) => {
   const notifications = await Notification.find({
-    userTo: req.session.user._id,
+    userTo: req.session.user!._id,
     notificationType: { $ne: "newMessage" },
   })
     .populate("userTo")

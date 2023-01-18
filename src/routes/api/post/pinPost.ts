@@ -1,12 +1,18 @@
-import { Router } from "express";
+import { Request, Router } from "express";
+import mongoose from "mongoose";
 import Post from "../../../schemas/postSchema";
 
 const router = Router();
 
-router.patch("/:id/pin", async (req: any, res, next) => {
+router.patch("/:id/pin", async (req: Request, res, next) => {
+  if (!mongoose.isValidObjectId(req.params.id))
+    return res.status(404).json({
+      status: "failed",
+      message: "Not Found",
+    });
   await Post.updateMany(
     {
-      postedBy: req.session.user._id,
+      postedBy: req.session.user?._id,
       _id: { $ne: req.params.id },
     },
     {

@@ -53,7 +53,7 @@ submitButton?.addEventListener("click", () => {
     });
 });
 
-const createPost = (postData, largFont = false) => {
+const createPost = (postData, largFont = false, inModel = false) => {
   const isRetweet = !!postData.retweetData;
   const isRetweetData = isRetweet ? postData : false;
   const replies = postData.replies ? postData.replies.length || "" : "";
@@ -101,7 +101,7 @@ const createPost = (postData, largFont = false) => {
 
               <div class='mainContentContainer'>
               ${
-                currentUser === postedBy._id
+                currentUser === postedBy._id && !inModel
                   ? `
 
                   <div class="closeButton">
@@ -241,22 +241,25 @@ document.addEventListener("click", (event) => {
     if (buttonElements[i].contains(event.target)) {
       const postId = getPostIdFromElement(buttonElements[i]);
       if (postId) {
-        axios.post("/api/posts/" + postId + "/retweet").then((res) => {
-          const posts = document.querySelectorAll(`[data-id="${postId}"]`);
-          emitNotification(res.data.data.postedBy);
-          posts.forEach((post) => {
-            buttonElements[i].querySelector(".retweetCounter").innerHTML =
-              res.data.data.retweetUsers.length || "";
+        axios
+          .post("/api/posts/" + postId + "/retweet")
+          .then((res) => {
+            const posts = document.querySelectorAll(`[data-id="${postId}"]`);
+            emitNotification(res.data.data.postedBy);
+            posts.forEach((post) => {
+              buttonElements[i].querySelector(".retweetCounter").innerHTML =
+                res.data.data.retweetUsers.length || "";
 
-            res.data.data.retweetUsers.includes(currentUser)
-              ? buttonElements[i]
-                  .querySelector(".retweetSpan")
-                  .classList.add("active")
-              : buttonElements[i]
-                  .querySelector(".retweetSpan")
-                  .classList.remove("active");
-          });
-        });
+              res.data.data.retweetUsers.includes(currentUser)
+                ? buttonElements[i]
+                    .querySelector(".retweetSpan")
+                    .classList.add("active")
+                : buttonElements[i]
+                    .querySelector(".retweetSpan")
+                    .classList.remove("active");
+            });
+          })
+          .catch(() => (window.location = "/404"));
       }
     }
   }
@@ -297,7 +300,8 @@ replySubmitButton &&
       .then((res) => {
         emitNotification(res.data.data.replyTo.postedBy._id);
         location.reload();
-      });
+      })
+      .catch(() => (window.location = "/404"));
   });
 
 // reply post
@@ -312,14 +316,17 @@ document.addEventListener("click", (event) => {
       postInModel.innerHTML = getSpinner();
       replyTextBox.value = "";
       replySubmitButton.disabled = true;
-      axios.get("/api/posts/" + postId).then((res) => {
-        postInModel.innerHTML =
-          createPost(res.data.data.post) +
-          `<h6 class="p-2 ">
+      axios
+        .get("/api/posts/" + postId)
+        .then((res) => {
+          postInModel.innerHTML =
+            createPost(res.data.data.post, false, true) +
+            `<h6 class="p-2 ">
         Replaying to <a href="/profile/${res.data.data.post.postedBy.username}"> @${res.data.data.post.postedBy.username} </a>
         </h6>`;
-        postInModel.querySelector(".postFooter").style.display = "none";
-      });
+          postInModel.querySelector(".postFooter").style.display = "none";
+        })
+        .catch(() => (window.location = "/404"));
     }
   }
 });
@@ -341,9 +348,7 @@ document.addEventListener("click", (event) => {
             const closer = document.querySelector(".deleteModelClose");
             closer.click();
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          .catch(() => (window.location = "/404"));
       });
     }
   }
@@ -372,9 +377,7 @@ document.addEventListener("click", (event) => {
             .then(({ data }) => {
               window.location.reload();
             })
-            .catch((err) => {
-              console.log(err);
-            });
+            .catch(() => (window.location = "/404"));
         });
     }
   }
@@ -394,9 +397,7 @@ document.addEventListener("click", (event) => {
             .then(({ data }) => {
               window.location.reload();
             })
-            .catch((err) => {
-              console.log(err);
-            });
+            .catch(() => (window.location = "/404"));
         });
     }
   }

@@ -31,30 +31,33 @@ socket.on("stop typing", () => {
   }
 });
 
-axios.get("/api/chats/" + chatId).then(({ data }) => {
-  chat = data.data;
-  chatNameinput.value = getChatName(chat);
-  document.querySelector(".chatMessages").innerHTML = getSpinner();
-  axios.get("/api/messages/" + chatId).then(({ data }) => {
-    deleteSpinner();
-    if (!data.data.length) {
-      return (document.querySelector(".chatMessages").innerHTML = `
+axios
+  .get("/api/chats/" + chatId)
+  .then(({ data }) => {
+    chat = data.data;
+    chatNameinput.value = getChatName(chat);
+    document.querySelector(".chatMessages").innerHTML = getSpinner();
+    axios.get("/api/messages/" + chatId).then(({ data }) => {
+      deleteSpinner();
+      if (!data.data.length) {
+        return (document.querySelector(".chatMessages").innerHTML = `
       <h1>
       
       Let's Start A Conversation
       
       </h1>
      `);
-    }
+      }
 
-    data.data.map((message) => {
-      document.querySelector(".chatMessages").innerHTML =
-        document.querySelector(".chatMessages").innerHTML +
-        createMessageHtml(message);
+      data.data.map((message) => {
+        document.querySelector(".chatMessages").innerHTML =
+          document.querySelector(".chatMessages").innerHTML +
+          createMessageHtml(message);
+      });
+      scrollToBottom(".chatMessages");
     });
-    scrollToBottom(".chatMessages");
-  });
-});
+  })
+  .catch(() => (window.location = "/404"));
 
 const chatNameHandler = (event) => {
   const inputValue = event.target.value;

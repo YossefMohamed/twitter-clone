@@ -1,8 +1,8 @@
-import { Router } from "express";
+import { Request, Router } from "express";
 
 const router = Router();
 
-router.get("/", (req: any, res, next) => {
+router.get("/", (req: Request, res, next) => {
   const payload = {
     pageTitle: "Home",
     userLoggedIn: req.session.user,

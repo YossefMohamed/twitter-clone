@@ -1,9 +1,9 @@
-import { Router } from "express";
+import { Router, Request } from "express";
 import Chat, { IChat } from "../../../schemas/chatSchema";
 
 const router = Router();
 
-router.post("/", async (req: any, res, next) => {
+router.post("/", async (req: Request, res, next) => {
   if (!req.body.users) {
     return res.status(400);
   }

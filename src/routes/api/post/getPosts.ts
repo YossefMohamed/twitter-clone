@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import Post from "../../../schemas/postSchema";
 const router = Router();
 
-router.get("/", async (req: any, res, next) => {
+router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   const posts = !req.query.search
     ? await getPostsFunction(
         req.query.postedBy

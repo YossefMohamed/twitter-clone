@@ -1,14 +1,20 @@
 import { NextFunction, Request, Response, Router } from "express";
+import mongoose from "mongoose";
 import Notification from "../../../schemas/notificationsSchema";
 import Post from "../../../schemas/postSchema";
 
 const router = Router();
 
-router.post("/:id/reply", async (req: any, res, next) => {
+router.post("/:id/reply", async (req: Request, res, next) => {
+  if (!mongoose.isValidObjectId(req.params.id))
+    return res.status(404).json({
+      status: "failed",
+      message: "Not Found",
+    });
   const { content } = req.body;
   let post = await Post.create({
     content: req.body.content,
-    postedBy: req.session.user._id,
+    postedBy: req.session.user?._id,
     replyTo: req.params.id,
   });
   post = await post.populate([
@@ -34,7 +40,7 @@ router.post("/:id/reply", async (req: any, res, next) => {
   if (post.replyTo) {
     await Notification.insertNotification({
       userTo: post.replyTo.postedBy._id,
-      userFrom: req.session.user._id,
+      userFrom: req.session.user?._id,
       notificationType: "reply",
       entityId: post._id,
     });

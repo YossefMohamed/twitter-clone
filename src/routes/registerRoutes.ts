@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request } from "express";
 import User from "../schemas/userSchema";
 import bcrypt from "bcrypt";
 const router = express.Router();
@@ -7,7 +7,7 @@ router.get("/", (req, res, next) => {
   res.status(200).render("register");
 });
 
-router.post("/", async (req: any, res, next) => {
+router.post("/", async (req: Request, res, next) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const username = req.body.username;
