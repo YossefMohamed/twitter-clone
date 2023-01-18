@@ -1,8 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 import path from "path";
-
 dotenv.config({ path: path.join(__dirname, "./.env") });
+import cors from "cors";
 import morgan from "morgan";
 import Database from "./database";
 import session from "express-session";
@@ -10,6 +10,7 @@ const app = express();
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "../views"));
+app.use(cors());
 
 import loginRouter from "./routes/loginRoutes";
 import registerRouter from "./routes/registerRoutes";
@@ -24,7 +25,6 @@ import { messageRouter } from "./routes/messageRoutes";
 import { IUser } from "./schemas/userSchema";
 import { notificationRouter } from "./routes/notificationRoutes";
 import { notFoundRoutes } from "./routes/404";
-
 
 new Database();
 
@@ -67,11 +67,9 @@ app.use("/notifications", requireLogin, notificationRouter);
 app.use("/", requireLogin, HomeRoutes);
 app.use("/posts/:id", requireLogin, postRoutes);
 
-
-app.use("*" ,( req: Request, res: Response, next: NextFunction) => {
+app.use("*", (req: Request, res: Response, next: NextFunction) => {
   res.redirect("/404");
 });
-
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.redirect("/404");
