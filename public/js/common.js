@@ -180,12 +180,31 @@ ${
                               </button>
                              
                           </div>
+
+
+                          <div class='postButtonContainer '>
+                              <button onclick="copyPostUrl('${postData._id}')" >
+                                  <span>
+                                  <i class="fa fa-share-alt" aria-hidden="true"></i>
+
+                                  <span>
+                                  
+                              </button>
+                             
+                          </div>
+                          
+                          
+                          
                       </div>
                   </div>
               </div>
           </div>`;
 };
 
+const copyPostUrl = (id) => {
+  navigator.clipboard.writeText(window.location.origin + "/posts/" + id);
+  alert("post url copied");
+};
 const getSpinner = () => {
   return `<div class="text-center py-5 spinner-loader">
   
