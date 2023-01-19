@@ -123,6 +123,7 @@ Yossef Mohamed - [My LinkedIn](https://www.linkedin.com/in/yossef-mohamed-57996a
 Project Link: [https://github.com/YossefMohamed/twitter-clone](https://github.com/YossefMohamed/twitter-clone)
 
 If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of ☕
+
 <a href="https://www.buymeacoffee.com/yossef29" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 <p align="right">(<a href="#twitter-clone">back to top</a>)</p>
