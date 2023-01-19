@@ -1,3 +1,4 @@
+import { ObjectId } from "mongoose";
 import { app } from "./app";
 
 const port = process.env.PORT || 3000;
@@ -6,6 +7,7 @@ const server = app.listen(port, () => {
 });
 
 let io = require("socket.io")(server);
+let onlineUser: ObjectId[] = [];
 
 io.on("connection", (socket: any) => {
   socket.on("setup", (currentUser: any) => socket.join(currentUser));
@@ -21,4 +23,18 @@ io.on("connection", (socket: any) => {
   socket.on("notification received", (room: any) =>
     socket.in(room).emit("notification received")
   );
+  socket.on("login", (userId: ObjectId) => {
+    onlineUser.push(userId);
+    console.log(onlineUser);
+
+    socket.emit("online", onlineUser);
+  });
+  socket.on("logout", (userId: ObjectId) => {
+    onlineUser = onlineUser.filter((user) => {
+      return user !== userId;
+    });
+    console.log(onlineUser);
+
+    socket.emit("online", onlineUser);
+  });
 });

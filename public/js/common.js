@@ -13,6 +13,9 @@
 
 //   submitButton.prop("disabled", false);
 // });
+let onlineUsers = [];
+socket.emit("login", currentUser);
+socket.on("online", (Users) => (onlineUsers = Users));
 
 const textbox = document.querySelector("#postTextarea");
 const submitButton = document.querySelector("#submitPostButton");
@@ -132,6 +135,12 @@ ${
               }
                   <div class='userImageContainer'>
                       <img src='/images/${postedBy.profilePic}'>
+                      <span class=" ${
+                        onlineUsers.indexOf(postedBy._id) >= 0
+                          ? "onlineSpan"
+                          : ""
+                      }"></span>
+                     
                   </div>
                   <div class='postContentContainer'>
                       <div class='header'>
@@ -461,4 +470,10 @@ const createNotificationHtml = (notification) => {
 $(document).ready(() => {
   refreshMessages();
   refreshNotifications();
+});
+
+document.querySelector(".logoutLink").addEventListener("click", (event) => {
+  event.preventDefault();
+  socket.emit("logout", currentUser);
+  window.location = "/logout";
 });

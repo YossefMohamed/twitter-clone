@@ -99,6 +99,7 @@ button {
 
 .userImageContainer {
   width: 50px;
+  position: relative;
   height: 50px;
 }
 
@@ -782,4 +783,15 @@ button.coverPictureButton:hover {
   top: 10px;
   display: none;
   right: 10px;
+}
+
+.onlineSpan {
+  width: 10px;
+  height: 10px;
+  background: var(--green);
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 100%;
 }
