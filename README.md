@@ -105,8 +105,6 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- ROADMAP -->
 ## To-Do
 
-
-- [ ] Add "components" document to easily copy & paste sections of the readme
 - [ ] Build the UI with Reactjs "NextJs"
 - [ ]  Add trends
 - [ ]  make mobile app using React Native 
